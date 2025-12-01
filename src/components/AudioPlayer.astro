@@ -217,7 +217,12 @@ const { src, title, artist = "" } = Astro.props;
 
   function togglePlayPause(): void {
     if (audio.paused) {
-      audio.play();
+      audio.play().catch((error) => {
+        console.error('Playback failed:', error);
+        // Keep play icon visible if playback fails
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+      });
       playIcon.classList.add('hidden');
       pauseIcon.classList.remove('hidden');
     } else {
@@ -238,14 +243,16 @@ const { src, title, artist = "" } = Astro.props;
   function setProgress(e: Event): void {
     const target = e.target as HTMLInputElement;
     const percent = parseFloat(target.value);
-    audio.currentTime = (percent / 100) * audio.duration;
+    if (audio.duration && !isNaN(audio.duration)) {
+      audio.currentTime = (percent / 100) * audio.duration;
+    }
   }
 
   function setVolume(e: Event): void {
     const target = e.target as HTMLInputElement;
-    const volume = parseFloat(target.value) / 100;
+    const volume = Math.max(0, Math.min(1, parseFloat(target.value) / 100));
     audio.volume = volume;
-    previousVolume = volume;
+    previousVolume = volume > 0 ? volume : previousVolume;
     updateVolumeIcon(volume);
   }
 
