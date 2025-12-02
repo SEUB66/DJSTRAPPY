@@ -138,6 +138,10 @@ Inside of your Astro project, you'll see the following folders and files:
 ├── public/
 │   └── ...
 ├── src/
+│   ├── assets/
+│   │   ├── branding/    # Logo, favicon, and brand elements
+│   │   ├── images/      # Page images (hero, sections, backgrounds)
+│   │   └── audio/       # Audio files for the site
 │   ├── components/
 │   │   └── ...
 │   ├── layouts/
@@ -150,6 +154,24 @@ Inside of your Astro project, you'll see the following folders and files:
 Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
 Any static assets, like images, can be placed in the `public/` directory.
+
+## Asset Organization
+
+Assets are organized in the `src/assets/` directory with the following structure:
+
+### `/branding`
+Contains logo, favicon, and brand-related assets:
+- `logo-favicon.svg` - SVG favicon for the site
+- `og-image.jpg` - OpenGraph image for social media sharing
+
+### `/images`
+Contains page images organized by their purpose:
+- `hero-main.png` - Main hero banner image for the homepage
+- `hero-alt.png` - Alternative hero image
+- `hero-source.svg` - Source SVG for hero illustrations
+
+### `/audio`
+Placeholder for audio files. Add audio assets here as needed.
 
 ## TailwindCSS
 
