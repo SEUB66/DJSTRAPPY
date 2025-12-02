@@ -20,8 +20,8 @@ const resolvedImageWithDomain = new URL(
 const { title } = Astro.props;
 
 const makeTitle = title
-  ? title + " | " + "DJStrappy"
-  : "DJStrappy - Your Website Solution";
+  ? title + " | " + "APPLE PUNK"
+  : "APPLE PUNK - Your Website Solution";
 ---
 
 <!doctype html>
@@ -35,22 +35,22 @@ const makeTitle = title
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <SEO
       title={makeTitle}
-      description="DJStrappy is a modern website built with Astro and TailwindCSS."
+      description="APPLE PUNK is a modern website built with Astro and TailwindCSS."
       canonical={canonicalURL}
       twitter={{
-        creator: "@djstrappy",
-        site: "@djstrappy",
+        creator: "@applepunk",
+        site: "@applepunk",
         card: "summary_large_image",
       }}
       openGraph={{
         basic: {
           url: canonicalURL,
           type: "website",
-          title: `DJStrappy - Your Website Solution`,
+          title: `APPLE PUNK - Your Website Solution`,
           image: resolvedImageWithDomain,
         },
         image: {
-          alt: "DJStrappy Homepage Screenshot",
+          alt: "APPLE PUNK Homepage Screenshot",
         },
       }}
     />

@@ -1,10 +1,10 @@
-# DJStrappy
+# APPLE PUNK
 
-DJStrappy is a modern website built with Astro and TailwindCSS. Fast, responsive, and ready for your content.
+APPLE PUNK is a modern website built with Astro and TailwindCSS. Fast, responsive, and ready for your content.
 
 ## Live Demo
 
-Hosted on Vercel: [https://djstrappy.vercel.app](https://djstrappy.vercel.app)
+Hosted on Vercel: [https://applepunk.vercel.app](https://applepunk.vercel.app)
 
 ## Tech Stack
 
