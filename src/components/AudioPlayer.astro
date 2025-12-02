@@ -1,0 +1,303 @@
+---
+interface Props {
+  src: string;
+  title: string;
+  artist?: string;
+}
+
+const { src, title, artist = "" } = Astro.props;
+---
+
+<div class="audio-player-container">
+  <div class="audio-info">
+    <h3 class="audio-title">{title}</h3>
+    {artist && <p class="audio-artist">{artist}</p>}
+  </div>
+  <div class="audio-controls">
+    <audio id="audio-player" src={src} preload="metadata"></audio>
+    <button id="play-pause-btn" class="control-btn" aria-label="Play/Pause">
+      <svg id="play-icon" class="icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <svg id="pause-icon" class="icon hidden" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </button>
+    <div class="progress-container">
+      <input type="range" id="progress-bar" class="progress-bar" min="0" max="100" value="0" aria-label="Track progress"/>
+      <div class="time-display">
+        <span id="current-time">0:00</span>
+        <span>/</span>
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+    <div class="volume-container">
+      <button id="volume-btn" class="control-btn volume-btn" aria-label="Mute/Unmute">
+        <svg id="volume-icon" class="icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        <svg id="mute-icon" class="icon hidden" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+        </svg>
+      </button>
+      <input type="range" id="volume-bar" class="volume-bar" min="0" max="100" value="80" aria-label="Volume"/>
+    </div>
+  </div>
+</div>
+
+<style>
+  .audio-player-container {
+    background: linear-gradient(135deg, #8B5CF6 0%, #06B6D4 100%);
+    border-radius: 16px;
+    padding: 1.5rem;
+    max-width: 500px;
+    margin: 2rem auto;
+    box-shadow: 0 10px 40px rgba(139, 92, 246, 0.3);
+  }
+
+  .audio-info {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .audio-title {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .audio-artist {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem;
+    margin: 0.25rem 0 0 0;
+  }
+
+  .audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .control-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+  }
+
+  .control-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+  }
+
+  .volume-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .volume-btn .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .progress-container {
+    flex: 1;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .progress-bar,
+  .volume-bar {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+  }
+
+  .progress-bar::-webkit-slider-thumb,
+  .volume-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #FBBF24;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .progress-bar::-moz-range-thumb,
+  .volume-bar::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #FBBF24;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  .time-display {
+    display: flex;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    justify-content: center;
+  }
+
+  .volume-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .volume-bar {
+    width: 80px;
+  }
+
+  @media (max-width: 480px) {
+    .audio-player-container {
+      padding: 1rem;
+    }
+
+    .audio-controls {
+      gap: 0.75rem;
+    }
+
+    .volume-bar {
+      width: 60px;
+    }
+  }
+</style>
+
+<script>
+  const audio = document.getElementById('audio-player') as HTMLAudioElement;
+  const playPauseBtn = document.getElementById('play-pause-btn') as HTMLButtonElement;
+  const playIcon = document.getElementById('play-icon') as SVGElement;
+  const pauseIcon = document.getElementById('pause-icon') as SVGElement;
+  const progressBar = document.getElementById('progress-bar') as HTMLInputElement;
+  const currentTimeDisplay = document.getElementById('current-time') as HTMLSpanElement;
+  const durationDisplay = document.getElementById('duration') as HTMLSpanElement;
+  const volumeBtn = document.getElementById('volume-btn') as HTMLButtonElement;
+  const volumeIcon = document.getElementById('volume-icon') as SVGElement;
+  const muteIcon = document.getElementById('mute-icon') as SVGElement;
+  const volumeBar = document.getElementById('volume-bar') as HTMLInputElement;
+
+  let previousVolume = 0.8;
+
+  function formatTime(seconds: number): string {
+    if (isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  function togglePlayPause(): void {
+    if (audio.paused) {
+      audio.play().catch((error) => {
+        console.error('Playback failed:', error);
+        // Keep play icon visible if playback fails
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+      });
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
+    } else {
+      audio.pause();
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+    }
+  }
+
+  function updateProgress(): void {
+    if (audio.duration) {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progressBar.value = percent.toString();
+      currentTimeDisplay.textContent = formatTime(audio.currentTime);
+    }
+  }
+
+  function setProgress(e: Event): void {
+    const target = e.target as HTMLInputElement;
+    const percent = parseFloat(target.value);
+    if (audio.duration && !isNaN(audio.duration)) {
+      audio.currentTime = (percent / 100) * audio.duration;
+    }
+  }
+
+  function setVolume(e: Event): void {
+    const target = e.target as HTMLInputElement;
+    const volume = Math.max(0, Math.min(1, parseFloat(target.value) / 100));
+    audio.volume = volume;
+    previousVolume = volume > 0 ? volume : previousVolume;
+    updateVolumeIcon(volume);
+  }
+
+  function toggleMute(): void {
+    if (audio.volume > 0) {
+      previousVolume = audio.volume;
+      audio.volume = 0;
+      volumeBar.value = '0';
+    } else {
+      audio.volume = previousVolume;
+      volumeBar.value = (previousVolume * 100).toString();
+    }
+    updateVolumeIcon(audio.volume);
+  }
+
+  function updateVolumeIcon(volume: number): void {
+    if (volume === 0) {
+      volumeIcon.classList.add('hidden');
+      muteIcon.classList.remove('hidden');
+    } else {
+      volumeIcon.classList.remove('hidden');
+      muteIcon.classList.add('hidden');
+    }
+  }
+
+  function onLoadedMetadata(): void {
+    durationDisplay.textContent = formatTime(audio.duration);
+  }
+
+  function onEnded(): void {
+    playIcon.classList.remove('hidden');
+    pauseIcon.classList.add('hidden');
+    progressBar.value = '0';
+    currentTimeDisplay.textContent = '0:00';
+  }
+
+  // Initialize volume
+  audio.volume = 0.8;
+
+  // Event listeners
+  playPauseBtn.addEventListener('click', togglePlayPause);
+  audio.addEventListener('timeupdate', updateProgress);
+  audio.addEventListener('loadedmetadata', onLoadedMetadata);
+  audio.addEventListener('ended', onEnded);
+  progressBar.addEventListener('input', setProgress);
+  volumeBar.addEventListener('input', setVolume);
+  volumeBtn.addEventListener('click', toggleMute);
+</script>
