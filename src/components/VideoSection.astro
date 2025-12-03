@@ -1,6 +1,11 @@
 ---
 // VideoSection component for embedding Vimeo video
 // Uses a lightweight facade pattern for better performance
+interface Props {
+  videoId?: string;
+}
+
+const { videoId = "1142285516" } = Astro.props;
 ---
 
 <div class="mt-16 md:mt-24">
@@ -16,7 +21,8 @@
       class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden shadow-xl cursor-pointer relative bg-gradient-to-br from-purple-900 to-cyan-900"
       role="button"
       tabindex="0"
-      aria-label="Play DJStrappy Video">
+      aria-label="Play DJStrappy Video"
+      data-video-id={videoId}>
       <div class="absolute inset-0 flex items-center justify-center">
         <div class="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white hover:scale-110 transition-transform">
           <svg class="w-10 h-10 text-purple-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
@@ -41,8 +47,11 @@
   function loadVideo(): void {
     if (!facade || !container) return;
     
+    const videoId = facade.dataset.videoId;
+    if (!videoId) return;
+    
     const iframe = document.createElement('iframe');
-    iframe.src = 'https://player.vimeo.com/video/1142285516?h=&title=0&byline=0&portrait=0&autoplay=1';
+    iframe.src = `https://player.vimeo.com/video/${videoId}?h=&title=0&byline=0&portrait=0&autoplay=1`;
     iframe.className = 'w-full h-full border-0';
     iframe.allow = 'autoplay; fullscreen; picture-in-picture';
     iframe.allowFullscreen = true;
