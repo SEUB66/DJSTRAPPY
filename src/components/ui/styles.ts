@@ -5,7 +5,7 @@ export type Size = "md" | "lg";
 // Button styles
 export type ButtonStyle = "outline" | "primary" | "inverted";
 
-// Link styles (extends button styles)
+// Link styles (includes button styles plus additional variants)
 export type LinkStyle = "outline" | "primary" | "inverted" | "muted";
 
 // Size classes for buttons
