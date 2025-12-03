@@ -3,7 +3,9 @@
  */
 
 /**
- * Size classes for button and link components
+ * Size classes for button and link components.
+ * Note: Original button used different padding values, but these unified values
+ * provide consistent sizing across all interactive elements.
  */
 export const sizeClasses = {
   sm: "px-3 py-1.5",
@@ -13,7 +15,8 @@ export const sizeClasses = {
 } as const;
 
 /**
- * Style variant classes for button and link components
+ * Style variant classes for button and link components.
+ * These styles provide a consistent look across all interactive elements.
  */
 export const styleVariantClasses = {
   primary: "bg-black text-white hover:bg-slate-900 border-2 border-transparent",
