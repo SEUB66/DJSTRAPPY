@@ -217,22 +217,30 @@ const { src, title, artist = "" } = Astro.props;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 
+  // Shared function to update play/pause icon state
+  function updatePlayPauseIcons(isPlaying: boolean): void {
+    if (isPlaying) {
+      playIcon.classList.add('hidden');
+      pauseIcon.classList.remove('hidden');
+    } else {
+      playIcon.classList.remove('hidden');
+      pauseIcon.classList.add('hidden');
+    }
+  }
+
   function togglePlayPause(): void {
     if (audio.paused) {
       audio.play().catch((error) => {
         console.error('Playback failed:', error);
         // Keep play icon visible if playback fails
-        playIcon.classList.remove('hidden');
-        pauseIcon.classList.add('hidden');
+        updatePlayPauseIcons(false);
         stopProgressAnimation();
       });
-      playIcon.classList.add('hidden');
-      pauseIcon.classList.remove('hidden');
+      updatePlayPauseIcons(true);
       startProgressAnimation();
     } else {
       audio.pause();
-      playIcon.classList.remove('hidden');
-      pauseIcon.classList.add('hidden');
+      updatePlayPauseIcons(false);
       stopProgressAnimation();
     }
   }
@@ -314,8 +322,7 @@ const { src, title, artist = "" } = Astro.props;
   }
 
   function onEnded(): void {
-    playIcon.classList.remove('hidden');
-    pauseIcon.classList.add('hidden');
+    updatePlayPauseIcons(false);
     progressBar.value = '0';
     currentTimeDisplay.textContent = '0:00';
     stopProgressAnimation();
@@ -323,15 +330,13 @@ const { src, title, artist = "" } = Astro.props;
 
   // Handle pause event (e.g., when audio is paused by browser or other means)
   function onPause(): void {
-    playIcon.classList.remove('hidden');
-    pauseIcon.classList.add('hidden');
+    updatePlayPauseIcons(false);
     stopProgressAnimation();
   }
 
   // Handle play event (e.g., when audio is played by browser or other means)
   function onPlay(): void {
-    playIcon.classList.add('hidden');
-    pauseIcon.classList.remove('hidden');
+    updatePlayPauseIcons(true);
     startProgressAnimation();
   }
 
