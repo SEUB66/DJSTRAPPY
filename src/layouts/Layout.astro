@@ -32,7 +32,12 @@ const formattedPageTitle = title
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
+    <!-- Preconnect to external origins for faster resource loading -->
+    <link rel="preconnect" href="https://player.vimeo.com" />
+    <link rel="preconnect" href="https://api.web3forms.com" />
+    <link rel="dns-prefetch" href="https://player.vimeo.com" />
+    <link rel="dns-prefetch" href="https://api.web3forms.com" />
+
     <SEO
       title={formattedPageTitle}
       description="DJStrappy - Experience the unique electronic music sounds of seub&will. Listen to our latest track Atypique."
