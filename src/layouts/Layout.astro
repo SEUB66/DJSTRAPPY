@@ -32,6 +32,9 @@ const formattedPageTitle = title
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Preconnect to external origins for faster resource loading -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <SEO
       title={formattedPageTitle}
