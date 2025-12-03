@@ -1,6 +1,5 @@
 ---
-// VideoSection component for embedding Vimeo video with lazy loading facade
-// Uses a click-to-load pattern to avoid loading heavy Vimeo resources until needed
+// VideoSection component for embedding Vimeo video
 ---
 
 <div class="mt-16 md:mt-24">
@@ -12,91 +11,14 @@
   </p>
   <div class="mt-8 flex justify-center">
     <div class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden shadow-xl">
-      <div 
-        id="video-facade" 
-        class="video-facade w-full h-full flex items-center justify-center cursor-pointer relative"
-        role="button"
-        tabindex="0"
-        aria-label="Play DJStrappy Video">
-        <div class="play-button">
-          <svg class="w-20 h-20 text-white opacity-90 hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
-        </div>
-        <span class="absolute bottom-4 text-white/70 text-sm">Click to load video</span>
-      </div>
       <iframe
-        id="vimeo-iframe"
-        data-src="https://player.vimeo.com/video/1142285516?h=&title=0&byline=0&portrait=0&autoplay=1"
-        class="w-full h-full border-0 hidden"
+        src="https://player.vimeo.com/video/1142285516?h=&title=0&byline=0&portrait=0"
+        class="w-full h-full border-0"
         allow="autoplay; fullscreen; picture-in-picture"
         allowfullscreen
+        loading="lazy"
         title="DJStrappy Video">
       </iframe>
     </div>
   </div>
 </div>
-
-<style>
-  .video-facade {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(6, 182, 212, 0.9) 100%);
-  }
-  
-  .play-button {
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease, background 0.2s ease;
-  }
-  
-  .video-facade:hover .play-button,
-  .video-facade:focus .play-button {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.3);
-  }
-  
-  .video-facade:focus {
-    outline: 2px solid #06B6D4;
-    outline-offset: 2px;
-  }
-</style>
-
-<script>
-  function initVideoFacade(): void {
-    const facade = document.getElementById('video-facade');
-    const iframe = document.getElementById('vimeo-iframe') as HTMLIFrameElement | null;
-    
-    if (!facade || !iframe) return;
-    
-    // Store references in closure to avoid repeated DOM lookups
-    const facadeEl = facade;
-    const iframeEl = iframe;
-    
-    function loadVideo(): void {
-      const src = iframeEl.getAttribute('data-src');
-      if (src) {
-        iframeEl.src = src;
-        iframeEl.classList.remove('hidden');
-        facadeEl.classList.add('hidden');
-      }
-    }
-    
-    facadeEl.addEventListener('click', loadVideo);
-    facadeEl.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        loadVideo();
-      }
-    });
-  }
-  
-  // Initialize on page load
-  initVideoFacade();
-  
-  // Re-initialize on Astro page transitions
-  document.addEventListener('astro:page-load', initVideoFacade);
-</script>
