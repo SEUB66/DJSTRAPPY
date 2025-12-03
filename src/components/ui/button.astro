@@ -1,16 +1,16 @@
 ---
 import {
-  sizes,
-  styles,
+  buttonSizes,
+  buttonStyles,
   baseClasses,
   type Size,
-  type Style,
+  type ButtonStyle,
 } from "./shared-styles";
 
 interface Props {
   size?: Size;
   block?: boolean;
-  style?: Style;
+  style?: ButtonStyle;
   class?: string;
   [x: string]: any;
 }
@@ -29,8 +29,8 @@ const {
   class:list={[
     baseClasses,
     block && "w-full",
-    sizes[size],
-    styles[style],
+    buttonSizes[size],
+    buttonStyles[style],
     className,
   ]}
   ><slot />
