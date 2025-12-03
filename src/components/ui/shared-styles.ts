@@ -36,7 +36,7 @@ export const linkSizes: Record<Size, string> = {
 export const buttonStyles: Record<ButtonStyle, string> = {
   outline: "border-2 border-black hover:bg-black text-black hover:text-white",
   primary: "bg-black text-white hover:bg-slate-900 border-2 border-transparent",
-  inverted: "bg-white text-black border-2 border-transparent",
+  inverted: "bg-white text-black hover:bg-gray-100 border-2 border-transparent",
 };
 
 /**
@@ -45,6 +45,6 @@ export const buttonStyles: Record<ButtonStyle, string> = {
 export const linkStyles: Record<LinkStyle, string> = {
   outline: "bg-white border-2 border-black hover:bg-gray-100 text-black",
   primary: "bg-black text-white hover:bg-gray-800 border-2 border-transparent",
-  inverted: "bg-white text-black border-2 border-transparent",
+  inverted: "bg-white text-black hover:bg-gray-100 border-2 border-transparent",
   muted: "bg-gray-100 hover:bg-gray-200 border-2 border-transparent",
 };
