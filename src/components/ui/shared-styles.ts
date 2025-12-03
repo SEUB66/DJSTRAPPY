@@ -5,7 +5,7 @@
  */
 
 export type Size = "md" | "lg";
-export type ButtonStyle = "outline" | "primary" | "inverted";
+export type ButtonStyle = "outline" | "primary";
 export type LinkStyle = "outline" | "primary" | "inverted" | "muted";
 
 /**
@@ -36,7 +36,6 @@ export const linkSizes: Record<Size, string> = {
 export const buttonStyles: Record<ButtonStyle, string> = {
   outline: "border-2 border-black hover:bg-black text-black hover:text-white",
   primary: "bg-black text-white hover:bg-slate-900 border-2 border-transparent",
-  inverted: "bg-white text-black border-2 border-transparent",
 };
 
 /**
