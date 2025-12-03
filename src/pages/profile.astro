@@ -1,0 +1,65 @@
+---
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import Layout from "@/layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+import { getLangFromUrl, useTranslations } from "@/i18n/translations";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Demo user data - in a real app this would come from auth/database
+const user = {
+  name: "Demo User",
+  email: "user@example.com",
+  location: "Montreal, Canada",
+  memberSince: "December 2025",
+  avatar: null,
+};
+---
+
+<Layout title={t("profile.title")}>
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">{t("profile.title")}</Fragment>
+      <Fragment slot="desc">{t("profile.desc")}</Fragment>
+    </Sectionhead>
+
+    <div class="max-w-2xl mx-auto mt-16">
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <div class="flex items-center gap-6 mb-8">
+          <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-full flex items-center justify-center">
+            <Icon class="text-white w-12 h-12" name="bx:bxs-user" />
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold text-gray-800">{user.name}</h2>
+            <p class="text-gray-500">{t("profile.member")}: {user.memberSince}</p>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="border-b pb-4">
+            <label class="text-sm font-medium text-gray-500">{t("profile.name")}</label>
+            <p class="text-lg text-gray-800 mt-1">{user.name}</p>
+          </div>
+
+          <div class="border-b pb-4">
+            <label class="text-sm font-medium text-gray-500">{t("profile.email")}</label>
+            <p class="text-lg text-gray-800 mt-1">{user.email}</p>
+          </div>
+
+          <div class="border-b pb-4">
+            <label class="text-sm font-medium text-gray-500">{t("profile.location")}</label>
+            <p class="text-lg text-gray-800 mt-1">{user.location}</p>
+          </div>
+        </div>
+
+        <div class="mt-8">
+          <button class="w-full bg-gradient-to-r from-purple-500 to-cyan-500 hover:from-purple-600 hover:to-cyan-600 text-white font-semibold py-3 px-6 rounded-lg transition-all">
+            {t("profile.edit")}
+          </button>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Layout>

@@ -3,20 +3,40 @@ import Container from "@/components/container.astro";
 import Link from "@/components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+import { getLangFromUrl, useTranslations, languages } from "@/i18n/translations";
+
+interface Props {
+  lang?: "en" | "fr";
+}
+
+const { lang: propLang } = Astro.props;
+const lang = propLang || getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const basePath = lang === "fr" ? "/fr" : "";
 
 const navigationMenuItems = [
   {
-    title: "Contact",
-    path: "/contact",
+    title: t("nav.profile"),
+    path: `${basePath}/profile`,
+  },
+  {
+    title: t("nav.contact"),
+    path: `${basePath}/contact`,
   },
 ];
+
+// Get the current path without language prefix for language switching
+const currentPath = Astro.url.pathname.replace(/^\/(fr|en)/, "") || "/";
+const otherLang = lang === "fr" ? "en" : "fr";
+const otherLangPath = otherLang === "en" ? currentPath : `/fr${currentPath}`;
 ---
 
 <Container>
   <header class="flex flex-col lg:flex-row justify-between items-center my-5">
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between">
-        <a href="/" class="text-lg"
+        <a href={basePath || "/"} class="text-lg"
           ><span class="font-bold text-slate-800">DJ</span><span
             class="text-slate-500">Strappy</span
           >
@@ -57,15 +77,23 @@ const navigationMenuItems = [
           }
         </ul>
         <div class="lg:hidden flex items-center mt-3 gap-4">
-          <Link href="#" style="muted" block size="md">Log in</Link>
-          <Link href="#" size="md" block>Sign up</Link>
+          <Link href="#" style="muted" block size="md">{t("nav.login")}</Link>
+          <Link href={`${basePath}/signup`} size="md" block>{t("nav.signup")}</Link>
         </div>
       </MenuItems>
     </Astronav>
     <div>
       <div class="hidden lg:flex items-center gap-4">
-        <a href="#">Log in</a>
-        <Link href="#" size="md">Sign up</Link>
+        <!-- Language Switcher -->
+        <a 
+          href={otherLangPath}
+          class="flex items-center gap-1 px-3 py-1 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+          title={t("lang.switch")}>
+          <span class="text-xs">🌐</span>
+          <span>{languages[otherLang]}</span>
+        </a>
+        <a href="#">{t("nav.login")}</a>
+        <Link href={`${basePath}/signup`} size="md">{t("nav.signup")}</Link>
       </div>
     </div>
   </header>

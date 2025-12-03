@@ -1,0 +1,27 @@
+---
+import Container from "@/components/container.astro";
+import Cta from "@/components/cta.astro";
+import Features from "@/components/features.astro";
+import Hero from "@/components/hero.astro";
+import Logos from "@/components/logos.astro";
+import Layout from "@/layouts/Layout.astro";
+import AudioPlayer from "@/components/AudioPlayer.astro";
+import VideoSection from "@/components/VideoSection.astro";
+
+// French version - uses lang="fr" in Layout
+---
+
+<Layout title="" lang="fr">
+  <Container>
+    <Hero lang="fr" />
+    <VideoSection />
+    <AudioPlayer
+      src="/audio/atypique-seub-will.mp3"
+      title="Atypique"
+      artist="seub&will"
+    />
+    <Features lang="fr" />
+    <Logos />
+    <Cta lang="fr" />
+  </Container>
+</Layout>

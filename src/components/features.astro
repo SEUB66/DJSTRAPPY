@@ -1,42 +1,44 @@
 ---
 // @ts-ignore
 import { Icon } from "astro-icon/components";
+import { useTranslations } from "@/i18n/translations";
+
+interface Props {
+  lang?: "en" | "fr";
+}
+
+const { lang = "en" } = Astro.props;
+const t = useTranslations(lang);
 
 const features = [
   {
-    title: "Electronic Music Production",
-    description:
-      "Crafting unique electronic soundscapes with cutting-edge production techniques and creative experimentation.",
+    title: t("features.production.title"),
+    description: t("features.production.description"),
     icon: "bx:bxs-briefcase",
   },
   {
-    title: "Live DJ Sets",
-    description:
-      "High-energy live performances that blend various genres and create unforgettable experiences on the dancefloor.",
+    title: t("features.liveDJ.title"),
+    description: t("features.liveDJ.description"),
     icon: "bx:bxs-window-alt",
   },
   {
-    title: "Original Compositions",
-    description:
-      "Creating original tracks like 'Atypique' that push boundaries and explore new sonic territories.",
+    title: t("features.original.title"),
+    description: t("features.original.description"),
     icon: "bx:bxs-data",
   },
   {
-    title: "Collaboration",
-    description:
-      "Working with talented artists and producers to create unique collaborative projects and remixes.",
+    title: t("features.collaboration.title"),
+    description: t("features.collaboration.description"),
     icon: "bx:bxs-bot",
   },
   {
-    title: "Music Distribution",
-    description:
-      "Making our music accessible across all major platforms so you can enjoy our sounds anywhere, anytime.",
+    title: t("features.distribution.title"),
+    description: t("features.distribution.description"),
     icon: "bx:bxs-file-find",
   },
   {
-    title: "Community",
-    description:
-      "Building a passionate community of music lovers who share our vision for innovative electronic music.",
+    title: t("features.community.title"),
+    description: t("features.community.description"),
     icon: "bx:bxs-user",
   },
 ];
@@ -44,10 +46,10 @@ const features = [
 
 <div class="mt-16 md:mt-0">
   <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
-    The DJStrappy Experience
+    {t("features.title")}
   </h2>
   <p class="text-lg mt-4 text-slate-600">
-    Discover what makes our music unique. From production to performance, we bring passion and innovation to everything we do.
+    {t("features.description")}
   </p>
 </div>
 
