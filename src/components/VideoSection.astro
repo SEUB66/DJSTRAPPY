@@ -1,5 +1,6 @@
 ---
 // VideoSection component for embedding Vimeo video
+// Uses a click-to-load facade pattern to avoid loading the iframe until needed
 ---
 
 <div class="mt-16 md:mt-24">
@@ -10,15 +11,77 @@
     Check out our latest video and get a glimpse into the world of DJStrappy.
   </p>
   <div class="mt-8 flex justify-center">
-    <div class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden shadow-xl">
-      <iframe
-        src="https://player.vimeo.com/video/1142285516?h=&title=0&byline=0&portrait=0"
-        class="w-full h-full border-0"
-        allow="autoplay; fullscreen; picture-in-picture"
-        allowfullscreen
-        loading="lazy"
-        title="DJStrappy Video">
-      </iframe>
+    <div id="video-container" class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden shadow-xl relative">
+      <button 
+        id="video-facade" 
+        class="video-facade w-full h-full bg-gradient-to-br from-purple-600 to-cyan-500 flex items-center justify-center cursor-pointer border-0"
+        aria-label="Play DJStrappy Video"
+        type="button">
+        <div class="play-button">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-16 h-16 text-white">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+        <span class="sr-only">Click to load video</span>
+      </button>
     </div>
   </div>
 </div>
+
+<style>
+  .video-facade {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .video-facade:hover {
+    transform: scale(1.01);
+  }
+
+  .video-facade:focus-visible {
+    outline: 2px solid #FBBF24;
+    outline-offset: 2px;
+  }
+
+  .play-button {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    padding: 1rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .video-facade:hover .play-button {
+    background: rgba(0, 0, 0, 0.5);
+    transform: scale(1.1);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
+
+<script>
+  const facade = document.getElementById('video-facade');
+  const container = document.getElementById('video-container');
+
+  if (facade && container) {
+    facade.addEventListener('click', function loadVideo() {
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://player.vimeo.com/video/1142285516?h=&title=0&byline=0&portrait=0&autoplay=1';
+      iframe.className = 'w-full h-full border-0';
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.title = 'DJStrappy Video';
+      
+      container.innerHTML = '';
+      container.appendChild(iframe);
+    }, { once: true });
+  }
+</script>
