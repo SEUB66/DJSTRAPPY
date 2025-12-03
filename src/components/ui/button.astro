@@ -1,10 +1,10 @@
 ---
-import { sizeClasses, styleVariantClasses, baseClasses, type Size, type Style } from "./styles";
+import { buttonSizeClasses, buttonStyleVariantClasses, baseClasses, type Size, type ButtonStyle } from "./styles";
 
 interface Props {
   size?: Size;
   block?: boolean;
-  style?: Style;
+  style?: ButtonStyle;
   class?: string;
   [x: string]: any;
 }
@@ -23,8 +23,8 @@ const {
   class:list={[
     baseClasses,
     block && "w-full",
-    sizeClasses[size],
-    styleVariantClasses[style],
+    buttonSizeClasses[size],
+    buttonStyleVariantClasses[style],
     className,
   ]}
   ><slot />

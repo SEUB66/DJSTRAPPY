@@ -1,11 +1,11 @@
 ---
-import { sizeClasses, styleVariantClasses, baseClasses, type Size, type Style } from "./styles";
+import { linkSizeClasses, linkStyleVariantClasses, baseClasses, type Size, type LinkStyle } from "./styles";
 
 interface Props {
   href: string;
   size?: Size;
   block?: boolean;
-  style?: Style;
+  style?: LinkStyle;
   class?: string;
   [x: string]: any;
 }
@@ -26,8 +26,8 @@ const {
   class:list={[
     baseClasses,
     block && "w-full",
-    sizeClasses[size],
-    styleVariantClasses[style],
+    linkSizeClasses[size],
+    linkStyleVariantClasses[style],
     className,
   ]}
   ><slot />
