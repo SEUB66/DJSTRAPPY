@@ -46,20 +46,21 @@ const thumbnailUrl = `https://vumbnail.com/${videoId}.jpg`;
 <script>
   const facade = document.getElementById('video-facade');
   
-  function loadVideo() {
-    if (!facade) return;
+  // Fail fast if facade element is not found
+  if (facade) {
+    function loadVideo() {
+      const videoId = facade.dataset.videoId;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://player.vimeo.com/video/${videoId}?h=&title=0&byline=0&portrait=0&autoplay=1`;
+      iframe.className = 'w-full h-full border-0';
+      iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.title = 'DJStrappy Video';
+      
+      facade.replaceChildren(iframe);
+      facade.classList.remove('cursor-pointer');
+    }
     
-    const videoId = facade.dataset.videoId;
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://player.vimeo.com/video/${videoId}?h=&title=0&byline=0&portrait=0&autoplay=1`;
-    iframe.className = 'w-full h-full border-0';
-    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-    iframe.allowFullscreen = true;
-    iframe.title = 'DJStrappy Video';
-    
-    facade.replaceChildren(iframe);
-    facade.classList.remove('cursor-pointer');
+    facade.addEventListener('click', loadVideo, { once: true });
   }
-  
-  facade?.addEventListener('click', loadVideo, { once: true });
 </script>

@@ -87,10 +87,14 @@ import Button from "./ui/button.astro";
       e.preventDefault();
       contactFormElement.classList.add("was-validated");
       
-      if (!contactFormElement.checkValidity()) {
-        const firstInvalid = contactFormElement.querySelector(":invalid");
-        if (firstInvalid) firstInvalid.focus();
-        return;
+      // Find first invalid element and focus it if form is invalid
+      const formElements = contactFormElement.elements;
+      for (let i = 0; i < formElements.length; i++) {
+        const element = formElements[i];
+        if (element.willValidate && !element.validity.valid) {
+          element.focus();
+          return;
+        }
       }
       
       const formData = new FormData(contactFormElement);

@@ -10,7 +10,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-us", {
 
 /**
  * Cache for formatted dates to avoid re-processing the same dates
- * @type {Map<string|number, string>}
+ * @type {Map<number, string>}
  */
 const dateCache = new Map();
 
@@ -23,14 +23,17 @@ const dateCache = new Map();
 export const getFormattedDate = (date) => {
   if (!date) return "";
   
-  // Create a cache key from the date
-  const cacheKey = date instanceof Date ? date.getTime() : date;
+  // Normalize all inputs to timestamp for consistent cache keys
+  const timestamp = new Date(date).getTime();
   
-  if (dateCache.has(cacheKey)) {
-    return dateCache.get(cacheKey);
+  // Return empty string for invalid dates
+  if (isNaN(timestamp)) return "";
+  
+  if (dateCache.has(timestamp)) {
+    return dateCache.get(timestamp);
   }
   
-  const formatted = dateFormatter.format(new Date(date));
-  dateCache.set(cacheKey, formatted);
+  const formatted = dateFormatter.format(timestamp);
+  dateCache.set(timestamp, formatted);
   return formatted;
 };
