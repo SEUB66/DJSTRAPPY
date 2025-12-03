@@ -77,21 +77,21 @@ import Button from "./ui/button.astro";
 </style>
 
 <script is:inline>
-  const form = document.getElementById("form");
-  const result = document.getElementById("result");
+  const contactFormElement = document.getElementById("form");
+  const submitResultDisplay = document.getElementById("result");
 
-  form.addEventListener("submit", function (e) {
+  contactFormElement.addEventListener("submit", function (e) {
     e.preventDefault();
-    form.classList.add("was-validated");
-    if (!form.checkValidity()) {
-      form.querySelectorAll(":invalid")[0].focus();
+    contactFormElement.classList.add("was-validated");
+    if (!contactFormElement.checkValidity()) {
+      contactFormElement.querySelectorAll(":invalid")[0].focus();
       return;
     }
-    const formData = new FormData(form);
-    const object = Object.fromEntries(formData);
-    const json = JSON.stringify(object);
+    const formData = new FormData(contactFormElement);
+    const formDataObject = Object.fromEntries(formData);
+    const formDataJson = JSON.stringify(formDataObject);
 
-    result.innerHTML = "Sending...";
+    submitResultDisplay.innerHTML = "Sending...";
 
     fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -99,28 +99,28 @@ import Button from "./ui/button.astro";
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: json,
+      body: formDataJson,
     })
       .then(async (response) => {
-        let json = await response.json();
+        let responseData = await response.json();
         if (response.status == 200) {
-          result.classList.add("text-green-500");
-          result.innerHTML = json.message;
+          submitResultDisplay.classList.add("text-green-500");
+          submitResultDisplay.innerHTML = responseData.message;
         } else {
           console.log(response);
-          result.classList.add("text-red-500");
-          result.innerHTML = json.message;
+          submitResultDisplay.classList.add("text-red-500");
+          submitResultDisplay.innerHTML = responseData.message;
         }
       })
       .catch((error) => {
         console.log(error);
-        result.innerHTML = "Something went wrong!";
+        submitResultDisplay.innerHTML = "Something went wrong!";
       })
       .then(function () {
-        form.reset();
-        form.classList.remove("was-validated");
+        contactFormElement.reset();
+        contactFormElement.classList.remove("was-validated");
         setTimeout(() => {
-          result.style.display = "none";
+          submitResultDisplay.style.display = "none";
         }, 5000);
       });
   });

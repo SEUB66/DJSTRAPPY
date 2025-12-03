@@ -4,7 +4,7 @@ import Link from "@/components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 
-const menuitems = [
+const navigationMenuItems = [
   {
     title: "Contact",
     path: "/contact",
@@ -28,23 +28,23 @@ const menuitems = [
       <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
         <ul class="flex flex-col lg:flex-row lg:gap-3">
           {
-            menuitems.map((item, index) => (
+            navigationMenuItems.map((menuItem, menuItemIndex) => (
               <>
-                {item.children && (
+                {menuItem.children && (
                   <Dropdown
-                    title={item.title}
-                    children={item.children}
-                    lastItem={index === menuitems.length - 1}
+                    title={menuItem.title}
+                    children={menuItem.children}
+                    lastItem={menuItemIndex === navigationMenuItems.length - 1}
                   />
                 )}
 
-                {!item.children && (
+                {!menuItem.children && (
                   <li>
                     <a
-                      href={item.path}
+                      href={menuItem.path}
                       class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
-                      <span> {item.title}</span>
-                      {item.badge && (
+                      <span> {menuItem.title}</span>
+                      {menuItem.badge && (
                         <span class="ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-indigo-600 rounded-full">
                           New
                         </span>

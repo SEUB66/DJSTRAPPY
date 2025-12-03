@@ -19,7 +19,7 @@ const resolvedImageWithDomain = new URL(
 
 const { title } = Astro.props;
 
-const makeTitle = title
+const formattedPageTitle = title
   ? title + " | " + "DJStrappy"
   : "DJStrappy - Music by seub&will";
 ---
@@ -34,7 +34,7 @@ const makeTitle = title
 
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <SEO
-      title={makeTitle}
+      title={formattedPageTitle}
       description="DJStrappy - Experience the unique electronic music sounds of seub&will. Listen to our latest track Atypique."
       canonical={canonicalURL}
       twitter={{

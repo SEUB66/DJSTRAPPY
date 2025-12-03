@@ -53,14 +53,14 @@ const features = [
 
 <div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
   {
-    features.map((item) => (
+    features.map((feature) => (
       <div class="flex gap-4 items-start">
         <div class="mt-1 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-full p-2 w-8 h-8 shrink-0">
-          <Icon class="text-white" name={item.icon} />
+          <Icon class="text-white" name={feature.icon} />
         </div>
         <div>
-          <h3 class="font-semibold text-lg text-teal-600">{item.title}</h3>{" "}
-          <p class="text-slate-500 mt-2 leading-relaxed">{item.description}</p>
+          <h3 class="font-semibold text-lg text-teal-600">{feature.title}</h3>{" "}
+          <p class="text-slate-500 mt-2 leading-relaxed">{feature.description}</p>
         </div>
       </div>
     ))
