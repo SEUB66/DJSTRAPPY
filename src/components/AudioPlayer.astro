@@ -243,7 +243,8 @@ const { src, title, artist = "" } = Astro.props;
       progressBar.value = percent.toString();
       currentTimeDisplay.textContent = formatTime(audio.currentTime);
     }
-    if (!audio.paused && !audio.ended) {
+    // Only continue animation if we're currently playing
+    if (animationFrameId !== null) {
       animationFrameId = requestAnimationFrame(updateProgressWithRAF);
     }
   }
