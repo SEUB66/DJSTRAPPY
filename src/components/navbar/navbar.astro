@@ -4,10 +4,12 @@ import Link from "@/components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
 
+const base = import.meta.env.BASE_URL;
+
 const menuitems = [
   {
     title: "Contact",
-    path: "/contact",
+    path: `${base}/contact`,
   },
 ];
 ---
@@ -16,7 +18,7 @@ const menuitems = [
   <header class="flex flex-col lg:flex-row justify-between items-center my-5">
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between">
-        <a href="/" class="text-lg"
+        <a href={`${base}/`} class="text-lg"
           ><span class="font-bold text-slate-800">Astro</span><span
             class="text-slate-500">ship</span
           >
