@@ -194,17 +194,20 @@ const { src, title, artist = "" } = Astro.props;
 </style>
 
 <script>
-  const audio = document.getElementById('audio-player') as HTMLAudioElement;
-  const playPauseBtn = document.getElementById('play-pause-btn') as HTMLButtonElement;
-  const playIcon = document.getElementById('play-icon') as SVGElement;
-  const pauseIcon = document.getElementById('pause-icon') as SVGElement;
-  const progressBar = document.getElementById('progress-bar') as HTMLInputElement;
-  const currentTimeDisplay = document.getElementById('current-time') as HTMLSpanElement;
-  const durationDisplay = document.getElementById('duration') as HTMLSpanElement;
-  const volumeBtn = document.getElementById('volume-btn') as HTMLButtonElement;
-  const volumeIcon = document.getElementById('volume-icon') as SVGElement;
-  const muteIcon = document.getElementById('mute-icon') as SVGElement;
-  const volumeBar = document.getElementById('volume-bar') as HTMLInputElement;
+  // Cache DOM elements once at initialization
+  const elements = {
+    audio: document.getElementById('audio-player') as HTMLAudioElement,
+    playPauseBtn: document.getElementById('play-pause-btn') as HTMLButtonElement,
+    playIcon: document.getElementById('play-icon') as SVGElement,
+    pauseIcon: document.getElementById('pause-icon') as SVGElement,
+    progressBar: document.getElementById('progress-bar') as HTMLInputElement,
+    currentTimeDisplay: document.getElementById('current-time') as HTMLSpanElement,
+    durationDisplay: document.getElementById('duration') as HTMLSpanElement,
+    volumeBtn: document.getElementById('volume-btn') as HTMLButtonElement,
+    volumeIcon: document.getElementById('volume-icon') as SVGElement,
+    muteIcon: document.getElementById('mute-icon') as SVGElement,
+    volumeBar: document.getElementById('volume-bar') as HTMLInputElement,
+  };
 
   let previousVolume = 0.8;
 
@@ -215,24 +218,27 @@ const { src, title, artist = "" } = Astro.props;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 
+  function setPlayState(isPlaying: boolean): void {
+    elements.playIcon.classList.toggle('hidden', isPlaying);
+    elements.pauseIcon.classList.toggle('hidden', !isPlaying);
+  }
+
   function togglePlayPause(): void {
+    const { audio } = elements;
     if (audio.paused) {
       audio.play().catch((error) => {
         console.error('Playback failed:', error);
-        // Keep play icon visible if playback fails
-        playIcon.classList.remove('hidden');
-        pauseIcon.classList.add('hidden');
+        setPlayState(false);
       });
-      playIcon.classList.add('hidden');
-      pauseIcon.classList.remove('hidden');
+      setPlayState(true);
     } else {
       audio.pause();
-      playIcon.classList.remove('hidden');
-      pauseIcon.classList.add('hidden');
+      setPlayState(false);
     }
   }
 
   function updateProgress(): void {
+    const { audio, progressBar, currentTimeDisplay } = elements;
     if (audio.duration) {
       const percent = (audio.currentTime / audio.duration) * 100;
       progressBar.value = percent.toString();
@@ -243,20 +249,27 @@ const { src, title, artist = "" } = Astro.props;
   function setProgress(e: Event): void {
     const target = e.target as HTMLInputElement;
     const percent = parseFloat(target.value);
+    const { audio } = elements;
     if (audio.duration && !isNaN(audio.duration)) {
       audio.currentTime = (percent / 100) * audio.duration;
     }
   }
 
+  function updateVolumeIcon(volume: number): void {
+    elements.volumeIcon.classList.toggle('hidden', volume === 0);
+    elements.muteIcon.classList.toggle('hidden', volume !== 0);
+  }
+
   function setVolume(e: Event): void {
     const target = e.target as HTMLInputElement;
     const volume = Math.max(0, Math.min(1, parseFloat(target.value) / 100));
-    audio.volume = volume;
+    elements.audio.volume = volume;
     previousVolume = volume > 0 ? volume : previousVolume;
     updateVolumeIcon(volume);
   }
 
   function toggleMute(): void {
+    const { audio, volumeBar } = elements;
     if (audio.volume > 0) {
       previousVolume = audio.volume;
       audio.volume = 0;
@@ -268,36 +281,25 @@ const { src, title, artist = "" } = Astro.props;
     updateVolumeIcon(audio.volume);
   }
 
-  function updateVolumeIcon(volume: number): void {
-    if (volume === 0) {
-      volumeIcon.classList.add('hidden');
-      muteIcon.classList.remove('hidden');
-    } else {
-      volumeIcon.classList.remove('hidden');
-      muteIcon.classList.add('hidden');
-    }
-  }
-
   function onLoadedMetadata(): void {
-    durationDisplay.textContent = formatTime(audio.duration);
+    elements.durationDisplay.textContent = formatTime(elements.audio.duration);
   }
 
   function onEnded(): void {
-    playIcon.classList.remove('hidden');
-    pauseIcon.classList.add('hidden');
-    progressBar.value = '0';
-    currentTimeDisplay.textContent = '0:00';
+    setPlayState(false);
+    elements.progressBar.value = '0';
+    elements.currentTimeDisplay.textContent = '0:00';
   }
 
   // Initialize volume
-  audio.volume = 0.8;
+  elements.audio.volume = 0.8;
 
   // Event listeners
-  playPauseBtn.addEventListener('click', togglePlayPause);
-  audio.addEventListener('timeupdate', updateProgress);
-  audio.addEventListener('loadedmetadata', onLoadedMetadata);
-  audio.addEventListener('ended', onEnded);
-  progressBar.addEventListener('input', setProgress);
-  volumeBar.addEventListener('input', setVolume);
-  volumeBtn.addEventListener('click', toggleMute);
+  elements.playPauseBtn.addEventListener('click', togglePlayPause);
+  elements.audio.addEventListener('timeupdate', updateProgress);
+  elements.audio.addEventListener('loadedmetadata', onLoadedMetadata);
+  elements.audio.addEventListener('ended', onEnded);
+  elements.progressBar.addEventListener('input', setProgress);
+  elements.volumeBar.addEventListener('input', setVolume);
+  elements.volumeBtn.addEventListener('click', toggleMute);
 </script>
