@@ -207,6 +207,8 @@ const { src, title, artist = "" } = Astro.props;
   const volumeBar = document.getElementById('volume-bar') as HTMLInputElement;
 
   let previousVolume = 0.8;
+  let animationFrameId: number | null = null;
+  let lastUpdateTime = 0;
 
   function formatTime(seconds: number): string {
     if (isNaN(seconds)) return '0:00';
@@ -215,28 +217,63 @@ const { src, title, artist = "" } = Astro.props;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 
-  function togglePlayPause(): void {
-    if (audio.paused) {
-      audio.play().catch((error) => {
-        console.error('Playback failed:', error);
-        // Keep play icon visible if playback fails
-        playIcon.classList.remove('hidden');
-        pauseIcon.classList.add('hidden');
-      });
+  // Shared function to update play/pause icon state
+  function updatePlayPauseIcons(isPlaying: boolean): void {
+    if (isPlaying) {
       playIcon.classList.add('hidden');
       pauseIcon.classList.remove('hidden');
     } else {
-      audio.pause();
       playIcon.classList.remove('hidden');
       pauseIcon.classList.add('hidden');
     }
   }
 
-  function updateProgress(): void {
-    if (audio.duration) {
-      const percent = (audio.currentTime / audio.duration) * 100;
-      progressBar.value = percent.toString();
-      currentTimeDisplay.textContent = formatTime(audio.currentTime);
+  function togglePlayPause(): void {
+    if (audio.paused) {
+      audio.play().catch((error) => {
+        console.error('Playback failed:', error);
+        // Keep play icon visible if playback fails
+        updatePlayPauseIcons(false);
+        stopProgressAnimation();
+      });
+      updatePlayPauseIcons(true);
+      startProgressAnimation();
+    } else {
+      audio.pause();
+      updatePlayPauseIcons(false);
+      stopProgressAnimation();
+    }
+  }
+
+  // Use requestAnimationFrame for smoother UI updates instead of timeupdate event
+  // This reduces unnecessary reflows and improves performance
+  function updateProgressWithRAF(timestamp: number): void {
+    // Throttle updates to ~15fps for progress bar (every ~66ms)
+    // This is sufficient for visual smoothness while reducing CPU usage
+    if (timestamp - lastUpdateTime >= 66) {
+      if (audio.duration && !audio.paused) {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progressBar.value = percent.toString();
+        currentTimeDisplay.textContent = formatTime(audio.currentTime);
+      }
+      lastUpdateTime = timestamp;
+    }
+    
+    if (!audio.paused) {
+      animationFrameId = requestAnimationFrame(updateProgressWithRAF);
+    }
+  }
+
+  function startProgressAnimation(): void {
+    if (animationFrameId === null) {
+      animationFrameId = requestAnimationFrame(updateProgressWithRAF);
+    }
+  }
+
+  function stopProgressAnimation(): void {
+    if (animationFrameId !== null) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
     }
   }
 
@@ -245,6 +282,8 @@ const { src, title, artist = "" } = Astro.props;
     const percent = parseFloat(target.value);
     if (audio.duration && !isNaN(audio.duration)) {
       audio.currentTime = (percent / 100) * audio.duration;
+      // Update display immediately when user seeks
+      currentTimeDisplay.textContent = formatTime(audio.currentTime);
     }
   }
 
@@ -283,10 +322,22 @@ const { src, title, artist = "" } = Astro.props;
   }
 
   function onEnded(): void {
-    playIcon.classList.remove('hidden');
-    pauseIcon.classList.add('hidden');
+    updatePlayPauseIcons(false);
     progressBar.value = '0';
     currentTimeDisplay.textContent = '0:00';
+    stopProgressAnimation();
+  }
+
+  // Handle pause event (e.g., when audio is paused by browser or other means)
+  function onPause(): void {
+    updatePlayPauseIcons(false);
+    stopProgressAnimation();
+  }
+
+  // Handle play event (e.g., when audio is played by browser or other means)
+  function onPlay(): void {
+    updatePlayPauseIcons(true);
+    startProgressAnimation();
   }
 
   // Initialize volume
@@ -294,9 +345,10 @@ const { src, title, artist = "" } = Astro.props;
 
   // Event listeners
   playPauseBtn.addEventListener('click', togglePlayPause);
-  audio.addEventListener('timeupdate', updateProgress);
   audio.addEventListener('loadedmetadata', onLoadedMetadata);
   audio.addEventListener('ended', onEnded);
+  audio.addEventListener('pause', onPause);
+  audio.addEventListener('play', onPlay);
   progressBar.addEventListener('input', setProgress);
   volumeBar.addEventListener('input', setVolume);
   volumeBtn.addEventListener('click', toggleMute);
