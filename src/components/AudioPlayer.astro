@@ -235,7 +235,7 @@ const { src, title, artist = "" } = Astro.props;
   }
 
   function updateProgress(): void {
-    // Throttle updates to reduce DOM operations (timeupdate fires ~4 times/second)
+    // Throttle DOM updates to every 250ms (timeupdate fires ~4 times/second but we only need UI updates periodically)
     const now = Date.now();
     if (now - lastUpdateTime < UPDATE_THROTTLE_MS) return;
     lastUpdateTime = now;
