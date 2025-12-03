@@ -2,7 +2,7 @@
 import {
   type Size,
   type LinkStyle,
-  sizeClasses,
+  linkSizeClasses,
   baseClasses,
   linkStyleClasses,
 } from "./buttonStyles";
@@ -32,7 +32,7 @@ const {
   class:list={[
     baseClasses,
     block && "w-full",
-    sizeClasses[size],
+    linkSizeClasses[size],
     linkStyleClasses[style],
     className,
   ]}

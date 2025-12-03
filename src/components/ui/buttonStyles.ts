@@ -5,14 +5,23 @@
  */
 
 export type Size = "md" | "lg";
-export type ButtonStyle = "outline" | "primary";
+export type ButtonStyle = "outline" | "primary" | "inverted";
 export type LinkStyle = "outline" | "primary" | "inverted" | "muted";
 
 /**
- * Size classes for button and link components.
+ * Size classes for button components.
  * Maps size options to their corresponding Tailwind CSS classes.
  */
-export const sizeClasses: Record<Size, string> = {
+export const buttonSizeClasses: Record<Size, string> = {
+  md: "px-5 py-2.5",
+  lg: "px-6 py-3",
+};
+
+/**
+ * Size classes for link components.
+ * Maps size options to their corresponding Tailwind CSS classes.
+ */
+export const linkSizeClasses: Record<Size, string> = {
   md: "px-4 py-2",
   lg: "px-5 py-2.5",
 };
@@ -29,11 +38,12 @@ export const baseClasses =
 export const buttonStyleClasses: Record<ButtonStyle, string> = {
   outline: "border-2 border-black hover:bg-black text-black hover:text-white",
   primary: "bg-black text-white hover:bg-slate-900 border-2 border-transparent",
+  inverted: "bg-white text-black border-2 border-transparent",
 };
 
 /**
  * Style variant classes for link components.
- * Includes additional variants (inverted, muted) specific to links.
+ * Includes additional variants (muted) specific to links.
  */
 export const linkStyleClasses: Record<LinkStyle, string> = {
   outline: "bg-white border-2 border-black hover:bg-gray-100 text-black",

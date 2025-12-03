@@ -2,7 +2,7 @@
 import {
   type Size,
   type ButtonStyle,
-  sizeClasses,
+  buttonSizeClasses,
   baseClasses,
   buttonStyleClasses,
 } from "./buttonStyles";
@@ -29,7 +29,7 @@ const {
   class:list={[
     baseClasses,
     block && "w-full",
-    sizeClasses[size],
+    buttonSizeClasses[size],
     buttonStyleClasses[style],
     className,
   ]}
