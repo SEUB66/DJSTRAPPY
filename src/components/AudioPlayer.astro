@@ -208,7 +208,7 @@ const { src, title, artist = "" } = Astro.props;
 
   let previousVolume = 0.8;
   let lastProgressUpdate = 0;
-  let animationFrameId: number | null = null;
+  let isUpdatingProgress = false;
 
   function formatTime(seconds: number): string {
     if (isNaN(seconds)) return '0:00';
@@ -236,9 +236,10 @@ const { src, title, artist = "" } = Astro.props;
 
   // Throttled progress update using requestAnimationFrame for smoother performance
   function updateProgress(): void {
-    if (animationFrameId !== null) return;
+    if (isUpdatingProgress) return;
+    isUpdatingProgress = true;
     
-    animationFrameId = requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
       if (audio.duration) {
         const percent = (audio.currentTime / audio.duration) * 100;
         progressBar.value = percent.toString();
@@ -250,7 +251,7 @@ const { src, title, artist = "" } = Astro.props;
           lastProgressUpdate = currentSecond;
         }
       }
-      animationFrameId = null;
+      isUpdatingProgress = false;
     });
   }
 

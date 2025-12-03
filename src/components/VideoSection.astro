@@ -80,8 +80,7 @@
       iframe.allowFullscreen = true;
       iframe.title = 'DJStrappy Video';
       
-      container.innerHTML = '';
-      container.appendChild(iframe);
+      container.replaceChildren(iframe);
     }, { once: true });
   }
 </script>
