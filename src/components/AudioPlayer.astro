@@ -207,6 +207,7 @@ const { src, title, artist = "" } = Astro.props;
   const volumeBar = document.getElementById('volume-bar') as HTMLInputElement;
 
   let previousVolume = 0.8;
+  let animationFrameId: number | null = null;
 
   function formatTime(seconds: number): string {
     if (isNaN(seconds)) return '0:00';
@@ -222,21 +223,41 @@ const { src, title, artist = "" } = Astro.props;
         // Keep play icon visible if playback fails
         playIcon.classList.remove('hidden');
         pauseIcon.classList.add('hidden');
+        stopProgressAnimation();
       });
       playIcon.classList.add('hidden');
       pauseIcon.classList.remove('hidden');
+      startProgressAnimation();
     } else {
       audio.pause();
       playIcon.classList.remove('hidden');
       pauseIcon.classList.add('hidden');
+      stopProgressAnimation();
     }
   }
 
-  function updateProgress(): void {
+  // Use requestAnimationFrame for smoother, more efficient progress updates
+  function updateProgressWithRAF(): void {
     if (audio.duration) {
       const percent = (audio.currentTime / audio.duration) * 100;
       progressBar.value = percent.toString();
       currentTimeDisplay.textContent = formatTime(audio.currentTime);
+    }
+    if (!audio.paused && !audio.ended) {
+      animationFrameId = requestAnimationFrame(updateProgressWithRAF);
+    }
+  }
+
+  function startProgressAnimation(): void {
+    if (animationFrameId === null) {
+      animationFrameId = requestAnimationFrame(updateProgressWithRAF);
+    }
+  }
+
+  function stopProgressAnimation(): void {
+    if (animationFrameId !== null) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
     }
   }
 
@@ -269,13 +290,9 @@ const { src, title, artist = "" } = Astro.props;
   }
 
   function updateVolumeIcon(volume: number): void {
-    if (volume === 0) {
-      volumeIcon.classList.add('hidden');
-      muteIcon.classList.remove('hidden');
-    } else {
-      volumeIcon.classList.remove('hidden');
-      muteIcon.classList.add('hidden');
-    }
+    const isMuted = volume === 0;
+    volumeIcon.classList.toggle('hidden', isMuted);
+    muteIcon.classList.toggle('hidden', !isMuted);
   }
 
   function onLoadedMetadata(): void {
@@ -287,6 +304,15 @@ const { src, title, artist = "" } = Astro.props;
     pauseIcon.classList.add('hidden');
     progressBar.value = '0';
     currentTimeDisplay.textContent = '0:00';
+    stopProgressAnimation();
+  }
+
+  function onPause(): void {
+    stopProgressAnimation();
+  }
+
+  function onPlay(): void {
+    startProgressAnimation();
   }
 
   // Initialize volume
@@ -294,9 +320,10 @@ const { src, title, artist = "" } = Astro.props;
 
   // Event listeners
   playPauseBtn.addEventListener('click', togglePlayPause);
-  audio.addEventListener('timeupdate', updateProgress);
   audio.addEventListener('loadedmetadata', onLoadedMetadata);
   audio.addEventListener('ended', onEnded);
+  audio.addEventListener('pause', onPause);
+  audio.addEventListener('play', onPlay);
   progressBar.addEventListener('input', setProgress);
   volumeBar.addEventListener('input', setVolume);
   volumeBtn.addEventListener('click', toggleMute);

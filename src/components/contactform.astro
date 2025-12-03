@@ -76,52 +76,59 @@ import Button from "./ui/button.astro";
   }
 </style>
 
-<script is:inline>
-  const contactFormElement = document.getElementById("form");
-  const submitResultDisplay = document.getElementById("result");
+<script>
+  const contactFormElement = document.getElementById("form") as HTMLFormElement | null;
+  const submitResultDisplay = document.getElementById("result") as HTMLElement | null;
 
-  contactFormElement.addEventListener("submit", function (e) {
-    e.preventDefault();
-    contactFormElement.classList.add("was-validated");
-    if (!contactFormElement.checkValidity()) {
-      contactFormElement.querySelectorAll(":invalid")[0].focus();
-      return;
-    }
-    const formData = new FormData(contactFormElement);
-    const formDataObject = Object.fromEntries(formData);
-    const formDataJson = JSON.stringify(formDataObject);
+  if (contactFormElement && submitResultDisplay) {
+    contactFormElement.addEventListener("submit", async function (e: SubmitEvent) {
+      e.preventDefault();
+      contactFormElement.classList.add("was-validated");
+      
+      if (!contactFormElement.checkValidity()) {
+        const firstInvalid = contactFormElement.querySelector(":invalid") as HTMLElement | null;
+        firstInvalid?.focus();
+        return;
+      }
+      
+      const formData = new FormData(contactFormElement);
+      const formDataJson = JSON.stringify(Object.fromEntries(formData));
 
-    submitResultDisplay.innerHTML = "Sending...";
+      submitResultDisplay.textContent = "Sending...";
+      submitResultDisplay.style.display = "block";
+      submitResultDisplay.classList.remove("text-green-500", "text-red-500");
 
-    fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: formDataJson,
-    })
-      .then(async (response) => {
-        let responseData = await response.json();
-        if (response.status == 200) {
-          submitResultDisplay.classList.add("text-green-500");
-          submitResultDisplay.innerHTML = responseData.message;
-        } else {
-          console.log(response);
-          submitResultDisplay.classList.add("text-red-500");
-          submitResultDisplay.innerHTML = responseData.message;
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: formDataJson,
+        });
+        
+        const responseData = await response.json();
+        const isSuccess = response.status === 200;
+        
+        submitResultDisplay.classList.toggle("text-green-500", isSuccess);
+        submitResultDisplay.classList.toggle("text-red-500", !isSuccess);
+        submitResultDisplay.textContent = responseData.message;
+        
+        if (!isSuccess) {
+          console.error("Form submission failed:", response);
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        submitResultDisplay.innerHTML = "Something went wrong!";
-      })
-      .then(function () {
+      } catch (error) {
+        console.error("Form submission error:", error);
+        submitResultDisplay.classList.add("text-red-500");
+        submitResultDisplay.textContent = "Something went wrong!";
+      } finally {
         contactFormElement.reset();
         contactFormElement.classList.remove("was-validated");
         setTimeout(() => {
           submitResultDisplay.style.display = "none";
         }, 5000);
-      });
-  });
+      }
+    });
+  }
 </script>
