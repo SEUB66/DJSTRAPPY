@@ -14,7 +14,7 @@
     <div class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden shadow-xl">
       <div 
         id="video-facade" 
-        class="video-facade w-full h-full bg-gradient-to-br from-purple-900 to-cyan-900 flex items-center justify-center cursor-pointer relative"
+        class="video-facade w-full h-full flex items-center justify-center cursor-pointer relative"
         role="button"
         tabindex="0"
         aria-label="Play DJStrappy Video">
@@ -39,7 +39,7 @@
 
 <style>
   .video-facade {
-    background-image: linear-gradient(135deg, rgba(139, 92, 246, 0.8) 0%, rgba(6, 182, 212, 0.8) 100%);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(6, 182, 212, 0.9) 100%);
   }
   
   .play-button {
@@ -72,18 +72,21 @@
     
     if (!facade || !iframe) return;
     
+    // Store references in closure to avoid repeated DOM lookups
+    const facadeEl = facade;
+    const iframeEl = iframe;
+    
     function loadVideo(): void {
-      if (!iframe) return;
-      const src = iframe.getAttribute('data-src');
+      const src = iframeEl.getAttribute('data-src');
       if (src) {
-        iframe.src = src;
-        iframe.classList.remove('hidden');
-        facade?.classList.add('hidden');
+        iframeEl.src = src;
+        iframeEl.classList.remove('hidden');
+        facadeEl.classList.add('hidden');
       }
     }
     
-    facade.addEventListener('click', loadVideo);
-    facade.addEventListener('keydown', (e: KeyboardEvent) => {
+    facadeEl.addEventListener('click', loadVideo);
+    facadeEl.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         loadVideo();
