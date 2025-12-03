@@ -235,7 +235,7 @@ const { src, title, artist = "" } = Astro.props;
 
   // Use requestAnimationFrame for smoother progress updates
   function updateProgressLoop(): void {
-    if (audio.duration && !audio.paused) {
+    if (!isNaN(audio.duration) && audio.duration > 0 && !audio.paused) {
       const percent = (audio.currentTime / audio.duration) * 100;
       progressBar.value = percent.toString();
       currentTimeDisplay.textContent = formatTime(audio.currentTime);
@@ -244,7 +244,7 @@ const { src, title, artist = "" } = Astro.props;
   }
 
   function startProgressUpdates(): void {
-    if (animationFrameId === null) {
+    if (animationFrameId === null && !audio.paused) {
       updateProgressLoop();
     }
   }
@@ -255,7 +255,7 @@ const { src, title, artist = "" } = Astro.props;
       animationFrameId = null;
     }
     // Update one final time when paused
-    if (audio.duration) {
+    if (!isNaN(audio.duration) && audio.duration > 0) {
       const percent = (audio.currentTime / audio.duration) * 100;
       progressBar.value = percent.toString();
       currentTimeDisplay.textContent = formatTime(audio.currentTime);
