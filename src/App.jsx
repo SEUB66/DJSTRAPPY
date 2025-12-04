@@ -3,20 +3,6 @@ import DevHub from './pages/DevHub';
 import About from './pages/About';
 import Footer from './components/Footer';
 
-/*
- * ============================================================
- * ONCE UI INTEGRATION PLACEHOLDER
- * ============================================================
- * 
- * When Once UI components become available, import them here:
- * 
- * import { Button, Card, Container } from '@once-ui/core';
- * 
- * Replace standard HTML elements with Once UI components as needed.
- * Check https://once-ui.com for component documentation.
- * ============================================================
- */
-
 function App() {
   return (
     <BrowserRouter>

@@ -1,6 +1,7 @@
 {
-  "name": "applepunk-devhub",
+  "name": "djstrappy",
   "version": "1.0.0",
+  "description": "DJ STRAPPY - Music and video creation service",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,8 +17,5 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "vite": "^6.0.3"
-  },
-  "comments": {
-    "once-ui": "TODO: Add Once UI package when available. Check https://once-ui.com for npm package or CDN. Expected usage: npm install @once-ui/core or similar. Add import in src/main.jsx or src/App.jsx."
   }
 }

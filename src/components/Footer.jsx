@@ -2,7 +2,7 @@
  * Footer Component
  * 
  * Site-wide footer with contact information and social links.
- * Contact email: founder@applepunk.com
+ * Contact email: contact@djstrappy.com
  */
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -13,53 +13,53 @@ function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Brand */}
           <div className="text-center md:text-left">
-            <span className="text-xl font-bold gradient-text">APPLEPUNK</span>
-            <p className="text-gray-500 text-sm mt-1">Web Design & App Development</p>
+            <span className="text-xl font-bold gradient-text">DJ STRAPPY</span>
+            <p className="text-gray-500 text-sm mt-1">Music & Video Creation</p>
           </div>
           
           {/* Contact */}
           <div className="text-center">
             <a 
-              href="mailto:founder@applepunk.com"
+              href="mailto:contact@djstrappy.com"
               className="text-cyan-400 hover:text-white transition-colors"
             >
-              founder@applepunk.com
+              contact@djstrappy.com
             </a>
           </div>
           
           {/* Social Links */}
           <div className="flex gap-4">
             <a 
-              href="https://twitter.com/appleppunk" 
+              href="https://twitter.com/djstrappy" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-cyan-400 transition-colors"
-              aria-label="Follow us on X (Twitter)"
+              aria-label="Follow on X (Twitter)"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
             </a>
             <a 
-              href="https://instagram.com/appleppunk" 
+              href="https://instagram.com/djstrappy" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-pink-400 transition-colors"
-              aria-label="Follow us on Instagram"
+              aria-label="Follow on Instagram"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
               </svg>
             </a>
             <a 
-              href="https://linkedin.com/company/appleppunk" 
+              href="https://soundcloud.com/djstrappy" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-500 hover:text-blue-400 transition-colors"
-              aria-label="Connect on LinkedIn"
+              className="text-gray-500 hover:text-orange-400 transition-colors"
+              aria-label="Listen on SoundCloud"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                <path d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.05 0 .09-.04.099-.098l.255-2.105-.255-2.154c-.009-.058-.05-.1-.099-.1zm-.899.828c-.06 0-.091.037-.104.094l-.19 1.332.19 1.282c.013.054.044.09.104.09.06 0 .091-.036.103-.09l.213-1.282-.213-1.332c-.012-.057-.043-.094-.103-.094zm1.83-.576c-.063 0-.116.052-.123.115l-.199 2.107.199 2.057c.007.063.06.117.123.117.064 0 .116-.054.123-.117l.223-2.057-.223-2.107c-.007-.063-.059-.115-.123-.115zm.922-.409c-.076 0-.138.063-.145.139l-.186 2.516.186 2.454c.007.076.069.139.145.139.078 0 .14-.063.147-.139l.208-2.454-.208-2.516c-.007-.076-.069-.139-.147-.139zm.921-.156c-.089 0-.161.073-.168.162l-.172 2.672.172 2.607c.007.089.079.162.168.162.09 0 .161-.073.168-.162l.194-2.607-.194-2.672c-.007-.089-.078-.162-.168-.162zm.922-.114c-.101 0-.183.083-.19.184l-.159 2.786.159 2.72c.007.101.089.184.19.184.101 0 .183-.083.19-.184l.18-2.72-.18-2.786c-.007-.101-.089-.184-.19-.184zm.921-.084c-.113 0-.205.093-.212.206l-.146 2.87.146 2.803c.007.113.099.206.212.206.113 0 .204-.093.211-.206l.165-2.803-.165-2.87c-.007-.113-.098-.206-.211-.206zm.922-.07c-.126 0-.228.103-.234.229l-.133 2.94.133 2.871c.006.126.108.229.234.229.127 0 .228-.103.234-.229l.15-2.871-.15-2.94c-.006-.126-.107-.229-.234-.229zm.922-.057c-.138 0-.25.113-.256.251l-.121 2.997.121 2.927c.006.138.118.251.256.251.138 0 .25-.113.256-.251l.137-2.927-.137-2.997c-.006-.138-.118-.251-.256-.251zm.922-.042c-.15 0-.273.123-.279.273l-.108 3.039.108 2.968c.006.15.129.273.279.273.151 0 .273-.123.279-.273l.123-2.968-.123-3.039c-.006-.15-.128-.273-.279-.273zm5.039-.78c-.296 0-.583.035-.862.102-1.022-3.458-4.185-6.003-7.955-6.003-1.018 0-1.995.193-2.894.542-.213.084-.269.168-.269.336v11.773c0 .182.148.332.331.346.013.001 10.649 0 10.649 0 2.174 0 3.939-1.765 3.939-3.939s-1.765-3.939-3.939-3.939z"/>
               </svg>
             </a>
             <a 
@@ -67,7 +67,7 @@ function Footer() {
               target="_blank" 
               rel="noopener noreferrer"
               className="text-gray-500 hover:text-white transition-colors"
-              aria-label="View our GitHub"
+              aria-label="View GitHub"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
@@ -79,10 +79,10 @@ function Footer() {
         {/* Copyright */}
         <div className="mt-8 pt-6 border-t border-gray-800 text-center">
           <p className="text-gray-500 text-sm">
-            Copyright © {currentYear} APPLEPUNK. All rights reserved.
+            Copyright © {currentYear} DJ STRAPPY. All rights reserved.
           </p>
           <p className="pixel-font text-[10px] text-cyan-400/50 mt-2">
-            Designed for Apple iOS by SebG
+            Music & Video Creation Service
           </p>
         </div>
       </div>
