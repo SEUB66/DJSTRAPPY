@@ -110,6 +110,17 @@ a:hover {
   color: var(--color-purple);
 }
 
+/* SVG Icons - constrain size */
+svg {
+  flex-shrink: 0;
+}
+
+a svg,
+button svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 /* App container */
 .app-container {
   min-height: 100vh;
