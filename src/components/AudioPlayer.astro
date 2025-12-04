@@ -14,7 +14,7 @@ const { src, title, artist = "" } = Astro.props;
     {artist && <p class="audio-artist">{artist}</p>}
   </div>
   <div class="audio-controls">
-    <audio id="audio-player" src={src} preload="metadata"></audio>
+    <audio id="audio-player" src={src} preload="none"></audio>
     <button id="play-pause-btn" class="control-btn" aria-label="Play/Pause">
       <svg id="play-icon" class="icon" viewBox="0 0 24 24" fill="currentColor">
         <path d="M8 5v14l11-7z"/>
@@ -207,6 +207,8 @@ const { src, title, artist = "" } = Astro.props;
   const volumeBar = document.getElementById('volume-bar') as HTMLInputElement;
 
   let previousVolume = 0.8;
+  let lastUpdateTime = 0;
+  const UPDATE_THROTTLE_MS = 250; // Throttle updates to every 250ms for better performance
 
   function formatTime(seconds: number): string {
     if (isNaN(seconds)) return '0:00';
@@ -233,6 +235,11 @@ const { src, title, artist = "" } = Astro.props;
   }
 
   function updateProgress(): void {
+    // Throttle DOM updates to every 250ms (timeupdate fires ~4 times/second but we only need UI updates periodically)
+    const now = Date.now();
+    if (now - lastUpdateTime < UPDATE_THROTTLE_MS) return;
+    lastUpdateTime = now;
+
     if (audio.duration) {
       const percent = (audio.currentTime / audio.duration) * 100;
       progressBar.value = percent.toString();
