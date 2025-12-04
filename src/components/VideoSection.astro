@@ -1,5 +1,5 @@
 ---
-// VideoSection component for embedding Vimeo video
+// VideoSection component for embedding Vimeo video with lazy loading facade
 ---
 
 <div class="mt-16 md:mt-24">
@@ -11,14 +11,56 @@
   </p>
   <div class="mt-8 flex justify-center">
     <div class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden shadow-xl">
+      <div 
+        id="video-facade" 
+        class="video-facade w-full h-full bg-gradient-to-br from-purple-600 to-cyan-500 flex items-center justify-center cursor-pointer relative"
+        role="button"
+        tabindex="0"
+        aria-label="Play DJStrappy Video"
+      >
+        <div class="play-button w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white hover:scale-110 transition-all duration-300">
+          <svg class="w-8 h-8 text-purple-600 ml-1" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </div>
+        <span class="absolute bottom-4 text-white/80 text-sm">Click to load video</span>
+      </div>
       <iframe
-        src="https://player.vimeo.com/video/1142285516?h=&title=0&byline=0&portrait=0"
-        class="w-full h-full border-0"
+        id="video-iframe"
+        data-src="https://player.vimeo.com/video/1142285516?h=&title=0&byline=0&portrait=0&autoplay=1"
+        class="w-full h-full border-0 hidden"
         allow="autoplay; fullscreen; picture-in-picture"
         allowfullscreen
-        loading="lazy"
         title="DJStrappy Video">
       </iframe>
     </div>
   </div>
 </div>
+
+<style>
+  .video-facade:hover .play-button {
+    transform: scale(1.1);
+  }
+</style>
+
+<script>
+  const facade = document.getElementById('video-facade');
+  const iframe = document.getElementById('video-iframe') as HTMLIFrameElement;
+  
+  function loadVideo(): void {
+    const src = iframe.dataset.src;
+    if (src) {
+      iframe.src = src;
+      iframe.classList.remove('hidden');
+      facade?.classList.add('hidden');
+    }
+  }
+  
+  facade?.addEventListener('click', loadVideo);
+  facade?.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      loadVideo();
+    }
+  });
+</script>
