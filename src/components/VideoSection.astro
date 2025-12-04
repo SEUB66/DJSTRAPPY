@@ -1,5 +1,8 @@
 ---
 // VideoSection component for embedding Vimeo video
+// Uses facade pattern for performance - shows placeholder until user clicks to play
+const videoId = "1142285516";
+const thumbnailUrl = `https://vumbnail.com/${videoId}.jpg`;
 ---
 
 <div class="mt-16 md:mt-24">
@@ -10,15 +13,58 @@
     Check out our latest video and get a glimpse into the world of DJStrappy.
   </p>
   <div class="mt-8 flex justify-center">
-    <div class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden shadow-xl">
+    <div class="w-full max-w-4xl aspect-video rounded-lg overflow-hidden shadow-xl relative">
+      <div 
+        id="video-facade" 
+        class="video-facade w-full h-full cursor-pointer bg-gray-900 flex items-center justify-center"
+        role="button"
+        tabindex="0"
+        aria-label="Play video"
+      >
+        <img 
+          src={thumbnailUrl}
+          alt="Video thumbnail - Click to play"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="absolute inset-0 bg-black/30 hover:bg-black/20 transition-colors flex items-center justify-center">
+          <div class="play-button w-20 h-20 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
       <iframe
-        src="https://player.vimeo.com/video/1142285516?h=&title=0&byline=0&portrait=0"
-        class="w-full h-full border-0"
+        id="video-iframe"
+        data-src={`https://player.vimeo.com/video/${videoId}?h=&title=0&byline=0&portrait=0&autoplay=1`}
+        class="w-full h-full border-0 hidden"
         allow="autoplay; fullscreen; picture-in-picture"
         allowfullscreen
-        loading="lazy"
         title="DJStrappy Video">
       </iframe>
     </div>
   </div>
 </div>
+
+<script>
+  const facade = document.getElementById('video-facade');
+  const iframe = document.getElementById('video-iframe') as HTMLIFrameElement;
+  
+  function loadVideo(): void {
+    if (facade && iframe && iframe.dataset.src) {
+      iframe.src = iframe.dataset.src;
+      iframe.classList.remove('hidden');
+      facade.classList.add('hidden');
+    }
+  }
+  
+  facade?.addEventListener('click', loadVideo);
+  facade?.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      loadVideo();
+    }
+  });
+</script>
