@@ -1,5 +1,10 @@
 import { useMemo } from 'react';
 
+// Coordinate system constants for gradient angle calculation
+const COORDINATE_CENTER = 50; // Center point in 0-100 coordinate system
+const RADIANS_TO_DEGREES = 180 / Math.PI;
+const ANGLE_OFFSET = 90; // Offset to convert from atan2 to CSS gradient angle
+
 /**
  * Background Component
  * 
@@ -41,31 +46,26 @@ function Background({
     return colorTokens[colorToken] || colorToken;
   };
 
+  // Extract gradient properties for dependency tracking
+  const { display, opacity = 1, x = 50, y = 0, colorStart, colorEnd } = gradient || {};
+
   // Calculate gradient styles
   const gradientStyle = useMemo(() => {
-    if (!gradient?.display) return {};
-
-    const {
-      opacity = 1,
-      x = 50,
-      y = 0,
-      colorStart,
-      colorEnd
-    } = gradient;
+    if (!display) return {};
 
     // Calculate gradient angle from x, y coordinates
     // x: 0 = left, 50 = center, 100 = right
     // y: 0 = top, 50 = center, 100 = bottom
-    const angle = Math.atan2(y - 50, x - 50) * (180 / Math.PI) + 90;
+    const angle = Math.atan2(y - COORDINATE_CENTER, x - COORDINATE_CENTER) * RADIANS_TO_DEGREES + ANGLE_OFFSET;
     
     const startColor = resolveColor(colorStart);
     const endColor = resolveColor(colorEnd);
 
     return {
       background: `linear-gradient(${angle}deg, ${startColor}, ${endColor})`,
-      opacity: opacity,
+      opacity,
     };
-  }, [gradient]);
+  }, [display, opacity, x, y, colorStart, colorEnd]);
 
   // Calculate container styles
   const containerStyle = useMemo(() => {
@@ -90,7 +90,7 @@ function Background({
 
   return (
     <div className={combinedClassName} style={containerStyle}>
-      {gradient?.display && (
+      {display && (
         <div 
           className="background-gradient"
           style={{
