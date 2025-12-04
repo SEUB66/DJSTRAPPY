@@ -1,0 +1,117 @@
+---
+// ThemeToggle.astro
+// Side toggle control (JOKER / GIRL) that calls window.__applySiteTheme to switch themes.
+---
+
+<div class="theme-toggle" role="toolbar" aria-label="Theme toggle" id="theme-toggle">
+  <button 
+    class="side left" 
+    id="joker-btn"
+    aria-pressed="false"
+    type="button"
+  >
+    JOKER
+  </button>
+  <div class="divider"></div>
+  <button 
+    class="side right" 
+    id="girl-btn"
+    aria-pressed="false"
+    type="button"
+  >
+    GIRL
+  </button>
+</div>
+
+<script>
+  const STORAGE_KEY = 'site-theme';
+  const jokerBtn = document.getElementById('joker-btn');
+  const girlBtn = document.getElementById('girl-btn');
+
+  function updateButtonStates() {
+    const current = (window as any).__getCurrentTheme ? (window as any).__getCurrentTheme() : localStorage.getItem(STORAGE_KEY);
+    
+    if (jokerBtn && girlBtn) {
+      jokerBtn.classList.toggle('active', current === 'joker');
+      girlBtn.classList.toggle('active', current === 'girl');
+      jokerBtn.setAttribute('aria-pressed', String(current === 'joker'));
+      girlBtn.setAttribute('aria-pressed', String(current === 'girl'));
+    }
+  }
+
+  function toggleTo(theme: string) {
+    if ((window as any).__applySiteTheme) {
+      (window as any).__applySiteTheme(theme);
+    }
+    updateButtonStates();
+  }
+
+  // Event listeners
+  jokerBtn?.addEventListener('click', () => toggleTo('joker'));
+  girlBtn?.addEventListener('click', () => toggleTo('girl'));
+
+  // Initialize button states
+  document.addEventListener('DOMContentLoaded', updateButtonStates);
+  if (document.readyState !== 'loading') {
+    updateButtonStates();
+  }
+
+  // Listen for storage changes from other tabs
+  window.addEventListener('storage', (e) => {
+    if (e.key === STORAGE_KEY) {
+      updateButtonStates();
+    }
+  });
+</script>
+
+<style>
+  .theme-toggle {
+    position: fixed;
+    left: 18px;
+    bottom: 18px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    background: rgba(10,12,14,0.7);
+    border-radius: 999px;
+    padding: 6px;
+    box-shadow: 0 6px 20px rgba(2,6,10,0.45);
+    backdrop-filter: blur(6px);
+  }
+
+  .theme-toggle .side {
+    padding: 10px 12px;
+    border: 0;
+    background: transparent;
+    color: #e9f0f2;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .theme-toggle .side.active {
+    background: linear-gradient(90deg, #2fc7a3, #58c7a0);
+    color: #04110f;
+    border-radius: 999px;
+  }
+
+  .theme-toggle .divider {
+    width: 2px;
+    background: rgba(255,255,255,0.04);
+    height: 28px;
+    margin: 0 6px;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 520px) {
+    .theme-toggle {
+      left: 10px;
+      bottom: 12px;
+      padding: 4px;
+    }
+    .theme-toggle .side {
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+  }
+</style>

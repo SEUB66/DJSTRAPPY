@@ -2,6 +2,8 @@
 import { SEO } from "astro-seo";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
+import BackgroundManager from "@/components/BackgroundManager.astro";
+import ThemeToggle from "@/components/ThemeToggle.astro";
 import "@fontsource-variable/inter/index.css";
 import "@fontsource-variable/bricolage-grotesque";
 import "../styles/global.css";
@@ -62,6 +64,8 @@ const formattedPageTitle = title
     />
   </head>
   <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
+    <BackgroundManager />
+    <ThemeToggle />
     <Navbar />
     <slot />
     <Footer />

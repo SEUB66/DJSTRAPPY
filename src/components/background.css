@@ -1,0 +1,131 @@
+/* Background layers: video (girl) and image (joker). Controlled via body.theme-{id} classes */
+.bg-video-clip {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000;
+}
+
+.bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  will-change: transform;
+  filter: saturate(1.02) contrast(1.02);
+  opacity: 0.98;
+}
+
+/* image layer sits above video but below content; background-image is set via CSS depending on theme */
+.bg-image-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+
+/* default: hide both layers (use theme classes to show) */
+body.theme-girl .bg-video-clip {
+  z-index: -2;
+  opacity: 1;
+}
+
+body.theme-girl .bg-image-layer {
+  opacity: 0;
+}
+
+body.theme-joker .bg-video-clip {
+  opacity: 0;
+}
+
+body.theme-joker .bg-image-layer {
+  opacity: 1;
+  z-index: -2;
+  background-image: linear-gradient(rgba(6,8,12,0.45), rgba(6,8,12,0.55)), url('/joker-bg.png');
+}
+
+@media (max-width: 880px) {
+  .bg-video {
+    transform: translate(-50%, -48%);
+  }
+  .bg-image-layer {
+    background-position: center top;
+  }
+}
+
+/* Theme toggle styling */
+.theme-toggle {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  background: rgba(10,12,14,0.7);
+  border-radius: 999px;
+  padding: 6px;
+  box-shadow: 0 6px 20px rgba(2,6,10,0.45);
+  backdrop-filter: blur(6px);
+}
+
+.theme-toggle .side {
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: #e9f0f2;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.theme-toggle .side.active {
+  background: linear-gradient(90deg, #2fc7a3, #58c7a0);
+  color: #04110f;
+  border-radius: 999px;
+}
+
+.theme-toggle .divider {
+  width: 2px;
+  background: rgba(255,255,255,0.04);
+  height: 28px;
+  margin: 0 6px;
+  border-radius: 2px;
+}
+
+/* ensure content cards remain readable */
+.card {
+  backdrop-filter: blur(6px);
+}
+
+@media (max-width: 520px) {
+  .theme-toggle {
+    left: 10px;
+    bottom: 12px;
+    padding: 4px;
+  }
+  .theme-toggle .side {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+}
+
+/* Login page background */
+body.login-bg {
+  background-image: linear-gradient(rgba(6,8,12,0.6), rgba(6,8,12,0.7)), url('/login-bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}

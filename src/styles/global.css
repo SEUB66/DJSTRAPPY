@@ -34,3 +34,92 @@
     border-color: var(--color-gray-200, currentColor);
   }
 }
+
+/* ===========================================
+   Background Layers & Theme System
+   =========================================== */
+
+/* Background video layer (girl theme) */
+.bg-video-clip {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000;
+}
+
+.bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  will-change: transform;
+  filter: saturate(1.02) contrast(1.02);
+  opacity: 0.98;
+}
+
+/* Background image layer (joker theme) */
+.bg-image-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+
+/* Girl theme: show video, hide image */
+body.theme-girl .bg-video-clip {
+  z-index: -2;
+  opacity: 1;
+}
+
+body.theme-girl .bg-image-layer {
+  opacity: 0;
+}
+
+/* Joker theme: hide video, show image */
+body.theme-joker .bg-video-clip {
+  opacity: 0;
+}
+
+body.theme-joker .bg-image-layer {
+  opacity: 1;
+  z-index: -2;
+  background-image: linear-gradient(rgba(6,8,12,0.45), rgba(6,8,12,0.55)), url('/joker-bg.png');
+}
+
+@media (max-width: 880px) {
+  .bg-video {
+    transform: translate(-50%, -48%);
+  }
+  .bg-image-layer {
+    background-position: center top;
+  }
+}
+
+/* Ensure content cards remain readable */
+.card {
+  backdrop-filter: blur(6px);
+}
+
+/* ===========================================
+   Login Page Background
+   =========================================== */
+
+body.login-bg {
+  background-image: linear-gradient(rgba(6,8,12,0.6), rgba(6,8,12,0.7)), url('/login-bg.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}

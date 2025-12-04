@@ -1,0 +1,61 @@
+---
+// BackgroundManager.astro
+// Mounts video/image layers and picks random theme on first load. Persists selection in localStorage.
+---
+
+<div class="bg-video-clip" aria-hidden="true">
+  <video id="bg-video" autoplay loop muted playsinline preload="auto" class="bg-video">
+    <source src="/bg-full.webm" type="video/webm" />
+    <source src="/bg-full.mp4" type="video/mp4" />
+  </video>
+</div>
+
+<div class="bg-image-layer" aria-hidden="true"></div>
+
+<script>
+  const STORAGE_KEY = 'site-theme';
+  const THEMES = ['girl', 'joker'];
+
+  function applyTheme(themeId: string) {
+    const theme = THEMES.includes(themeId) ? themeId : 'girl';
+    document.documentElement.setAttribute('data-theme', theme);
+    document.body.classList.remove('theme-girl', 'theme-joker');
+    document.body.classList.add(`theme-${theme}`);
+    localStorage.setItem(STORAGE_KEY, theme);
+
+    const video = document.getElementById('bg-video') as HTMLVideoElement;
+    if (theme === 'girl' && video) {
+      video.load();
+      video.muted = true;
+      video.play().catch(() => {});
+    }
+  }
+
+  function getCurrentTheme() {
+    return localStorage.getItem(STORAGE_KEY);
+  }
+
+  function initializeTheme() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    const theme = stored || (Math.random() < 0.5 ? 'girl' : 'joker');
+    applyTheme(theme);
+  }
+
+  // Initialize theme on page load
+  document.addEventListener('DOMContentLoaded', initializeTheme);
+
+  // Also run immediately in case DOM is already ready
+  if (document.readyState !== 'loading') {
+    initializeTheme();
+  }
+
+  // Expose functions globally for ThemeToggle to use
+  // Note: This is intentional for Astro's architecture where components can't share state easily
+  (window as any).__applySiteTheme = applyTheme;
+  (window as any).__getCurrentTheme = getCurrentTheme;
+</script>
+
+<style>
+  /* Import background styles */
+  @import './background.css';
+</style>
