@@ -38,6 +38,11 @@ const formattedPageTitle = title
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Preconnect to external resources for faster loading -->
+    <link rel="preconnect" href="https://player.vimeo.com" />
+    <link rel="preconnect" href="https://vumbnail.com" />
+    <link rel="dns-prefetch" href="https://api.web3forms.com" />
+
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <SEO
       title={formattedPageTitle}

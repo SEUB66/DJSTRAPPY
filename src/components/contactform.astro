@@ -77,51 +77,61 @@ import Button from "./ui/button.astro";
 </style>
 
 <script is:inline>
-  const contactFormElement = document.getElementById("form");
-  const submitResultDisplay = document.getElementById("result");
+  (function() {
+    const contactFormElement = document.getElementById("form");
+    const submitResultDisplay = document.getElementById("result");
 
-  contactFormElement.addEventListener("submit", function (e) {
-    e.preventDefault();
-    contactFormElement.classList.add("was-validated");
-    if (!contactFormElement.checkValidity()) {
-      contactFormElement.querySelectorAll(":invalid")[0].focus();
-      return;
-    }
-    const formData = new FormData(contactFormElement);
-    const formDataObject = Object.fromEntries(formData);
-    const formDataJson = JSON.stringify(formDataObject);
+    if (!contactFormElement || !submitResultDisplay) return;
 
-    submitResultDisplay.innerHTML = "Sending...";
-
-    fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: formDataJson,
-    })
-      .then(async (response) => {
-        let responseData = await response.json();
-        if (response.status == 200) {
-          submitResultDisplay.classList.add("text-green-500");
-          submitResultDisplay.innerHTML = responseData.message;
-        } else {
-          console.log(response);
-          submitResultDisplay.classList.add("text-red-500");
-          submitResultDisplay.innerHTML = responseData.message;
+    contactFormElement.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      contactFormElement.classList.add("was-validated");
+      
+      // Find first invalid element and focus it if form is invalid
+      const formElements = contactFormElement.elements;
+      for (let i = 0; i < formElements.length; i++) {
+        const element = formElements[i];
+        if (element.willValidate && !element.validity.valid) {
+          element.focus();
+          return;
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        submitResultDisplay.innerHTML = "Something went wrong!";
-      })
-      .then(function () {
+      }
+      
+      const formData = new FormData(contactFormElement);
+      submitResultDisplay.textContent = "Sending...";
+      submitResultDisplay.style.display = "";
+      
+      // Remove previous status classes
+      submitResultDisplay.classList.remove("text-green-500", "text-red-500");
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(Object.fromEntries(formData)),
+        });
+        
+        const responseData = await response.json();
+        
+        if (response.ok) {
+          submitResultDisplay.classList.add("text-green-500");
+        } else {
+          submitResultDisplay.classList.add("text-red-500");
+        }
+        submitResultDisplay.textContent = responseData.message;
+      } catch (error) {
+        submitResultDisplay.classList.add("text-red-500");
+        submitResultDisplay.textContent = "Something went wrong!";
+      } finally {
         contactFormElement.reset();
         contactFormElement.classList.remove("was-validated");
         setTimeout(() => {
           submitResultDisplay.style.display = "none";
         }, 5000);
-      });
-  });
+      }
+    });
+  })();
 </script>
