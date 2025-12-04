@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Background from '../components/Background';
 
 /**
  * About / Home Page
@@ -12,6 +13,20 @@ function About() {
 
   return (
     <main className="hex-bg min-h-screen py-12 px-4">
+      {/* Background gradient component */}
+      <Background
+        fill
+        height={16}
+        gradient={{ 
+          display: true, 
+          opacity: 1,
+          x: 50,
+          y: 0,
+          colorStart: "brand-background-strong",
+          colorEnd: "accent-background-weak"
+        }}
+      />
+      
       <div className="container">
         {/* Hero Section */}
         <header className="text-center mb-16 pt-8">

@@ -14,6 +14,14 @@
   --color-bg-card: rgba(0, 0, 0, 0.7);
   --color-text: #ffffff;
   --color-text-muted: #9ca3af;
+  
+  /* Background Component Design Tokens */
+  --color-brand-background-strong: #06b6d4;
+  --color-brand-background-weak: rgba(6, 182, 212, 0.3);
+  --color-accent-background-strong: #8b5cf6;
+  --color-accent-background-weak: rgba(139, 92, 246, 0.3);
+  --color-neutral-background: #0a0a0f;
+  --color-surface-background: rgba(0, 0, 0, 0.7);
 }
 
 body {
@@ -131,6 +139,24 @@ button svg {
 /* Main content */
 main {
   flex: 1;
+}
+
+/* Background Component Styles */
+.background-container {
+  display: block;
+}
+
+.background-fill {
+  width: 100%;
+}
+
+.background-gradient {
+  transition: opacity 0.3s ease;
+}
+
+.background-content {
+  width: 100%;
+  height: 100%;
 }
 
 /*
