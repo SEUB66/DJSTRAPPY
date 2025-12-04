@@ -1,5 +1,6 @@
 ---
 import { SEO } from "astro-seo";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import Footer from "@/components/footer.astro";
 import Navbar from "@/components/navbar/navbar.astro";
 import "@fontsource-variable/inter/index.css";
@@ -59,6 +60,7 @@ const formattedPageTitle = title
     <Navbar />
     <slot />
     <Footer />
+    <SpeedInsights />
     <style is:global>
       /* Improve Page speed */
       /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
