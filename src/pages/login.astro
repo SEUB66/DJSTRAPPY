@@ -99,7 +99,7 @@ const title = "Login | APPLEPPUNK";
       }
     </style>
   </head>
-  <body class="hex-bg min-h-screen flex items-center justify-center p-4">
+  <body class="login-bg hex-bg min-h-screen flex items-center justify-center p-4">
     <!-- Main Container -->
     <div class="w-full max-w-4xl flex flex-col lg:flex-row gap-6 items-stretch">
       
@@ -276,9 +276,9 @@ const title = "Login | APPLEPPUNK";
           localStorage.setItem('applepunk_user', username);
           localStorage.setItem('applepunk_logged_in', 'true');
           
-          // Show success and redirect
+          // Show success and redirect to devhub
           alert(`Welcome back, ${username}! 🎉`);
-          window.location.href = '/';
+          window.location.href = '/devhub';
         } else {
           // Show error
           alert('Invalid username or password. Try again!');
