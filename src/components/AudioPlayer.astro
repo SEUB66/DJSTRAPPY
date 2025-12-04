@@ -207,6 +207,8 @@ const { src, title, artist = "" } = Astro.props;
   const volumeBar = document.getElementById('volume-bar') as HTMLInputElement;
 
   let previousVolume = 0.8;
+  let lastProgressUpdate = 0;
+  let isUpdatingProgress = false;
 
   function formatTime(seconds: number): string {
     if (isNaN(seconds)) return '0:00';
@@ -232,12 +234,25 @@ const { src, title, artist = "" } = Astro.props;
     }
   }
 
+  // Throttled progress update using requestAnimationFrame for smoother performance
   function updateProgress(): void {
-    if (audio.duration) {
-      const percent = (audio.currentTime / audio.duration) * 100;
-      progressBar.value = percent.toString();
-      currentTimeDisplay.textContent = formatTime(audio.currentTime);
-    }
+    if (isUpdatingProgress) return;
+    isUpdatingProgress = true;
+    
+    requestAnimationFrame(() => {
+      if (audio.duration) {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progressBar.value = percent.toString();
+        
+        // Only update text if the second has changed (reduces DOM updates)
+        const currentSecond = Math.floor(audio.currentTime);
+        if (currentSecond !== lastProgressUpdate) {
+          currentTimeDisplay.textContent = formatTime(audio.currentTime);
+          lastProgressUpdate = currentSecond;
+        }
+      }
+      isUpdatingProgress = false;
+    });
   }
 
   function setProgress(e: Event): void {
@@ -287,6 +302,7 @@ const { src, title, artist = "" } = Astro.props;
     pauseIcon.classList.add('hidden');
     progressBar.value = '0';
     currentTimeDisplay.textContent = '0:00';
+    lastProgressUpdate = 0;
   }
 
   // Initialize volume
