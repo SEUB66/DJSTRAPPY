@@ -1,0 +1,310 @@
+---
+import { SEO } from "astro-seo";
+import "@fontsource-variable/inter/index.css";
+import "@fontsource-variable/bricolage-grotesque";
+import "../styles/global.css";
+import { Icon } from "astro-icon/components";
+
+const title = "Login | APPLEPPUNK";
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <SEO
+      title={title}
+      description="APPLEPPUNK Login - Access your account"
+    />
+    <!-- Pixel Font - Press Start 2P -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+      .pixel-font {
+        font-family: 'Press Start 2P', cursive;
+      }
+      
+      /* Hexagonal pattern background */
+      .hex-bg {
+        background-color: #0a0a0f;
+        background-image: 
+          linear-gradient(30deg, #1a1a2e 12%, transparent 12.5%, transparent 87%, #1a1a2e 87.5%, #1a1a2e),
+          linear-gradient(150deg, #1a1a2e 12%, transparent 12.5%, transparent 87%, #1a1a2e 87.5%, #1a1a2e),
+          linear-gradient(30deg, #1a1a2e 12%, transparent 12.5%, transparent 87%, #1a1a2e 87.5%, #1a1a2e),
+          linear-gradient(150deg, #1a1a2e 12%, transparent 12.5%, transparent 87%, #1a1a2e 87.5%, #1a1a2e),
+          linear-gradient(60deg, #16162a 25%, transparent 25.5%, transparent 75%, #16162a 75%, #16162a),
+          linear-gradient(60deg, #16162a 25%, transparent 25.5%, transparent 75%, #16162a 75%, #16162a);
+        background-size: 80px 140px;
+        background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+      }
+      
+      /* Glowing cyan border */
+      .glow-border {
+        border: 2px solid #06b6d4;
+        box-shadow: 
+          0 0 10px #06b6d4,
+          0 0 20px #06b6d4,
+          0 0 30px #06b6d4,
+          inset 0 0 10px rgba(6, 182, 212, 0.1);
+      }
+      
+      /* Glowing button */
+      .glow-btn {
+        background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+        transition: all 0.3s ease;
+      }
+      
+      .glow-btn:hover {
+        box-shadow: 0 0 30px rgba(6, 182, 212, 0.8), 0 0 40px rgba(139, 92, 246, 0.5);
+        transform: translateY(-2px);
+      }
+      
+      /* Input glow effect */
+      .input-glow:focus {
+        border-color: #06b6d4;
+        box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        outline: none;
+      }
+      
+      /* Theme toggle buttons */
+      .theme-btn {
+        transition: all 0.2s ease;
+      }
+      
+      .theme-btn:hover {
+        transform: scale(1.1);
+        filter: brightness(1.2);
+      }
+      
+      .theme-btn.active {
+        box-shadow: 0 0 10px currentColor;
+      }
+      
+      /* Neon text effect */
+      .neon-text {
+        text-shadow: 
+          0 0 5px #06b6d4,
+          0 0 10px #06b6d4,
+          0 0 20px #06b6d4;
+      }
+      
+      /* Apple logo styling */
+      .apple-icon {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+      }
+    </style>
+  </head>
+  <body class="hex-bg min-h-screen flex items-center justify-center p-4">
+    <!-- Main Container -->
+    <div class="w-full max-w-4xl flex flex-col lg:flex-row gap-6 items-stretch">
+      
+      <!-- Poster Section -->
+      <div class="lg:w-1/2 glow-border rounded-2xl p-8 bg-black/50 backdrop-blur-sm flex flex-col justify-center">
+        <div class="text-center space-y-6">
+          <!-- Theme Toggles -->
+          <div class="flex justify-center gap-4 mb-8">
+            <button class="theme-btn w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-yellow-400 border border-gray-600" aria-label="Light theme">
+              <Icon name="bx:bx-sun" class="w-5 h-5" />
+            </button>
+            <button class="theme-btn w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-blue-400 border border-gray-600 active" aria-label="Dark theme">
+              <Icon name="bx:bx-moon" class="w-5 h-5" />
+            </button>
+            <button class="theme-btn w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-purple-400 border border-gray-600" aria-label="Custom theme">
+              <Icon name="bx:bx-palette" class="w-5 h-5" />
+            </button>
+          </div>
+          
+          <!-- Logo Placeholder - Add your seublogo file to src/assets/branding/ -->
+          <div class="mb-4">
+            <img 
+              src="/seublogo.png" 
+              alt="APPLEPUNK Logo" 
+              class="w-32 h-32 mx-auto object-contain rounded-lg"
+              onerror="this.style.display='none'"
+            />
+          </div>
+          
+          <!-- Brand Name -->
+          <h1 class="text-3xl lg:text-4xl font-bold">
+            <span class="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              APPLEPUNK
+            </span>
+          </h1>
+          
+          <!-- Tagline -->
+          <div class="space-y-2">
+            <p class="text-xl lg:text-2xl font-semibold text-cyan-400 neon-text">
+              developper cave
+            </p>
+            <div class="flex items-center justify-center gap-3 text-white/90">
+              <svg class="w-6 h-6 apple-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+              <span class="text-lg font-medium">Web Design & App Development</span>
+            </div>
+          </div>
+          
+          <!-- Decorative Line -->
+          <div class="w-32 h-1 mx-auto bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-full"></div>
+          
+          <!-- APPLEPUNK Badge -->
+          <div class="mt-6">
+            <span class="pixel-font text-xs text-cyan-400 tracking-wider">APPLEPUNK DEVELOPPER CAVE</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Login Panel -->
+      <div class="lg:w-1/2 glow-border rounded-2xl p-8 bg-black/70 backdrop-blur-sm">
+        <div class="space-y-6">
+          <!-- Login Header -->
+          <div class="text-center">
+            <h2 class="text-2xl font-bold text-white mb-2">Welcome Back</h2>
+            <p class="text-gray-400 text-sm">Sign in to your account</p>
+          </div>
+          
+          <!-- Login Form -->
+          <form class="space-y-5" id="login-form">
+            <!-- Username Field -->
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Icon name="bx:bx-user" class="w-5 h-5 text-cyan-400" />
+              </div>
+              <input 
+                type="text" 
+                name="username"
+                placeholder="Username"
+                class="input-glow w-full pl-12 pr-4 py-3 bg-gray-900/80 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-cyan-400 transition-all"
+                required
+              />
+            </div>
+            
+            <!-- Password Field -->
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Icon name="bx:bx-lock-alt" class="w-5 h-5 text-cyan-400" />
+              </div>
+              <input 
+                type="password" 
+                name="password"
+                placeholder="Password"
+                class="input-glow w-full pl-12 pr-4 py-3 bg-gray-900/80 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:border-cyan-400 transition-all"
+                required
+              />
+            </div>
+            
+            <!-- Remember & Forgot -->
+            <div class="flex items-center justify-between text-sm">
+              <label class="flex items-center text-gray-400 cursor-pointer">
+                <input type="checkbox" class="mr-2 accent-cyan-500" />
+                Remember me
+              </label>
+              <a href="#" class="text-cyan-400 hover:text-cyan-300 transition-colors">Forgot password?</a>
+            </div>
+            
+            <!-- Sign In Button -->
+            <button 
+              type="submit" 
+              class="glow-btn w-full py-3 rounded-lg text-white font-semibold text-lg"
+            >
+              EXTRA SAUCE
+            </button>
+          </form>
+          
+          <!-- Divider -->
+          <div class="flex items-center gap-4">
+            <div class="flex-1 h-px bg-gray-700"></div>
+            <span class="text-gray-500 text-sm">or</span>
+            <div class="flex-1 h-px bg-gray-700"></div>
+          </div>
+          
+          <!-- Social Login -->
+          <div class="flex justify-center gap-4">
+            <button class="w-12 h-12 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-white hover:border-cyan-500 transition-colors" aria-label="Sign in with Apple">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+            </button>
+            <button class="w-12 h-12 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-white hover:border-cyan-500 transition-colors" aria-label="Sign in with Google">
+              <Icon name="simple-icons:google" class="w-5 h-5" />
+            </button>
+            <button class="w-12 h-12 rounded-full bg-gray-800 border border-gray-700 flex items-center justify-center text-white hover:border-cyan-500 transition-colors" aria-label="Sign in with GitHub">
+              <Icon name="simple-icons:github" class="w-5 h-5" />
+            </button>
+          </div>
+          
+          <!-- Sign Up Link -->
+          <p class="text-center text-gray-400 text-sm">
+            Don't have an account? 
+            <a href="#" class="text-cyan-400 hover:text-cyan-300 transition-colors">Sign up</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footer Quote -->
+    <footer class="fixed bottom-0 left-0 right-0 p-4 text-center">
+      <p class="pixel-font text-[10px] text-cyan-400/70 leading-relaxed">
+        "Creativity is intelligence having fun."
+      </p>
+      <p class="pixel-font text-[8px] text-gray-600 mt-1">
+        Designed for Apple iOS by SebG - all rights reserved
+      </p>
+    </footer>
+    
+    <script>
+      // Simple NO AUTH login system - hardcoded users
+      const USERS = {
+        'PUNKadmin': '1'
+      };
+      
+      // Form submission handler
+      document.getElementById('login-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        const username = formData.get('username') as string;
+        const password = formData.get('password') as string;
+        
+        // Check credentials
+        if (USERS[username] && USERS[username] === password) {
+          // Store login state in localStorage
+          localStorage.setItem('applepunk_user', username);
+          localStorage.setItem('applepunk_logged_in', 'true');
+          
+          // Show success and redirect
+          alert(`Welcome back, ${username}! 🎉`);
+          window.location.href = '/';
+        } else {
+          // Show error
+          alert('Invalid username or password. Try again!');
+        }
+      });
+      
+      // Theme toggle functionality
+      const themeButtons = document.querySelectorAll('.theme-btn');
+      themeButtons.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+          themeButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          
+          // Apply theme based on button index
+          const themes = ['light', 'dark', 'custom'];
+          localStorage.setItem('theme', themes[index]);
+        });
+      });
+      
+      // Check if already logged in
+      if (localStorage.getItem('applepunk_logged_in') === 'true') {
+        const user = localStorage.getItem('applepunk_user');
+        if (confirm(`You're already logged in as ${user}. Go to homepage?`)) {
+          window.location.href = '/';
+        }
+      }
+    </script>
+  </body>
+</html>

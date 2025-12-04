@@ -20,13 +20,19 @@ const resolvedImageWithDomain = new URL(
 const { title } = Astro.props;
 
 const formattedPageTitle = title
-  ? title + " | " + "DJStrappy"
-  : "DJStrappy - Music by seub&will";
+  ? title + " | " + "APPLEPPUNK"
+  : "APPLEPPUNK - Web Design, App Development & Branding";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="light">
   <head>
+    <script is:inline>
+      // Dark mode toggle - check localStorage and system preference
+      const theme = localStorage.getItem('theme') || 
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -35,27 +41,27 @@ const formattedPageTitle = title
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <SEO
       title={formattedPageTitle}
-      description="DJStrappy - Experience the unique electronic music sounds of seub&will. Listen to our latest track Atypique."
+      description="APPLEPPUNK - Professional Web Design, App Development, Company Branding & Social Network Boosting services. Transform your digital presence."
       canonical={canonicalURL}
       twitter={{
-        creator: "@djstrappy",
-        site: "@djstrappy",
+        creator: "@appleppunk",
+        site: "@appleppunk",
         card: "summary_large_image",
       }}
       openGraph={{
         basic: {
           url: canonicalURL,
           type: "website",
-          title: `DJStrappy - Music by seub&will`,
+          title: `APPLEPPUNK - Web Design & App Development`,
           image: resolvedImageWithDomain,
         },
         image: {
-          alt: "DJStrappy Music",
+          alt: "APPLEPPUNK Digital Services",
         },
       }}
     />
   </head>
-  <body>
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
     <Navbar />
     <slot />
     <Footer />
