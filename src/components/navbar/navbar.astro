@@ -3,8 +3,21 @@ import Container from "@/components/container.astro";
 import Link from "@/components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
+import { Icon } from "astro-icon/components";
 
 const navigationMenuItems = [
+  {
+    title: "Home",
+    path: "/",
+  },
+  {
+    title: "Services",
+    path: "/#services",
+  },
+  {
+    title: "Portfolio",
+    path: "/#portfolio",
+  },
   {
     title: "Contact",
     path: "/contact",
@@ -17,12 +30,20 @@ const navigationMenuItems = [
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between">
         <a href="/" class="text-2xl font-bold"
-          ><span class="bg-gradient-to-r from-purple-500 via-teal-400 to-cyan-500 bg-clip-text text-transparent">DJ</span><span
-            class="bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent">Strappy</span
+          ><span class="bg-gradient-to-r from-purple-500 via-teal-400 to-cyan-500 bg-clip-text text-transparent">APPLE</span><span
+            class="bg-gradient-to-r from-cyan-500 to-purple-500 bg-clip-text text-transparent">PUNK</span
           >
         </a>
-        <div class="block lg:hidden">
-          <MenuIcon class="w-4 h-4 text-gray-800" />
+        <div class="flex items-center gap-4 lg:hidden">
+          <!-- Dark mode toggle for mobile -->
+          <button
+            id="theme-toggle-mobile"
+            class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Toggle dark mode">
+            <Icon class="w-5 h-5 text-gray-600 dark:text-gray-300 hidden dark:block" name="bx:bx-sun" />
+            <Icon class="w-5 h-5 text-gray-600 dark:text-gray-300 block dark:hidden" name="bx:bx-moon" />
+          </button>
+          <MenuIcon class="w-4 h-4 text-gray-800 dark:text-gray-200" />
         </div>
       </div>
       <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
@@ -42,7 +63,7 @@ const navigationMenuItems = [
                   <li>
                     <a
                       href={menuItem.path}
-                      class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
+                      class="flex lg:px-3 py-2 items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
                       <span> {menuItem.title}</span>
                       {menuItem.badge && (
                         <span class="ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-indigo-600 rounded-full">
@@ -56,17 +77,39 @@ const navigationMenuItems = [
             ))
           }
         </ul>
-        <div class="lg:hidden flex items-center mt-3 gap-4">
-          <Link href="#" style="muted" block size="md">Log in</Link>
-          <Link href="#" size="md" block>Sign up</Link>
-        </div>
       </MenuItems>
     </Astronav>
     <div>
       <div class="hidden lg:flex items-center gap-4">
-        <a href="#">Log in</a>
-        <Link href="#" size="md">Sign up</Link>
+        <!-- Dark mode toggle for desktop -->
+        <button
+          id="theme-toggle-desktop"
+          class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          aria-label="Toggle dark mode">
+          <Icon class="w-5 h-5 text-gray-600 dark:text-gray-300 hidden dark:block" name="bx:bx-sun" />
+          <Icon class="w-5 h-5 text-gray-600 dark:text-gray-300 block dark:hidden" name="bx:bx-moon" />
+        </button>
+        <Link href="/contact" size="md">Get a Quote</Link>
       </div>
     </div>
   </header>
 </Container>
+
+<script>
+  function setupThemeToggle() {
+    const toggleButtons = document.querySelectorAll('#theme-toggle-mobile, #theme-toggle-desktop');
+    
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    });
+  }
+  
+  // Run on initial load
+  setupThemeToggle();
+  
+  // Re-run on Astro page transitions
+  document.addEventListener('astro:after-swap', setupThemeToggle);
+</script>
