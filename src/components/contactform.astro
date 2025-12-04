@@ -91,7 +91,10 @@ import Button from "./ui/button.astro";
     const formDataObject = Object.fromEntries(formData);
     const formDataJson = JSON.stringify(formDataObject);
 
-    submitResultDisplay.innerHTML = "Sending...";
+    // Reset display and classes before showing new status
+    submitResultDisplay.style.display = "";
+    submitResultDisplay.classList.remove("text-green-500", "text-red-500");
+    submitResultDisplay.textContent = "Sending...";
 
     fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -105,16 +108,16 @@ import Button from "./ui/button.astro";
         let responseData = await response.json();
         if (response.status == 200) {
           submitResultDisplay.classList.add("text-green-500");
-          submitResultDisplay.innerHTML = responseData.message;
+          submitResultDisplay.textContent = responseData.message;
         } else {
           console.log(response);
           submitResultDisplay.classList.add("text-red-500");
-          submitResultDisplay.innerHTML = responseData.message;
+          submitResultDisplay.textContent = responseData.message;
         }
       })
       .catch((error) => {
         console.log(error);
-        submitResultDisplay.innerHTML = "Something went wrong!";
+        submitResultDisplay.textContent = "Something went wrong!";
       })
       .then(function () {
         contactFormElement.reset();
