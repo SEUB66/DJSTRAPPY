@@ -212,7 +212,7 @@ const title = "Login | APPLEPPUNK";
               type="submit" 
               class="glow-btn w-full py-3 rounded-lg text-white font-semibold text-lg"
             >
-              Sign In
+              EXTRA SAUCE
             </button>
           </form>
           
@@ -258,18 +258,31 @@ const title = "Login | APPLEPPUNK";
     </footer>
     
     <script>
+      // Simple NO AUTH login system - hardcoded users
+      const USERS = {
+        'PUNKadmin': '1'
+      };
+      
       // Form submission handler
       document.getElementById('login-form')?.addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
-        const username = formData.get('username');
-        const password = formData.get('password');
+        const username = formData.get('username') as string;
+        const password = formData.get('password') as string;
         
-        // Demo: Show alert (replace with actual auth logic)
-        alert(`Login attempt for: ${username}`);
-        
-        // Redirect to home after login (demo)
-        // window.location.href = '/';
+        // Check credentials
+        if (USERS[username] && USERS[username] === password) {
+          // Store login state in localStorage
+          localStorage.setItem('applepunk_user', username);
+          localStorage.setItem('applepunk_logged_in', 'true');
+          
+          // Show success and redirect
+          alert(`Welcome back, ${username}! 🎉`);
+          window.location.href = '/';
+        } else {
+          // Show error
+          alert('Invalid username or password. Try again!');
+        }
       });
       
       // Theme toggle functionality
@@ -284,6 +297,14 @@ const title = "Login | APPLEPPUNK";
           localStorage.setItem('theme', themes[index]);
         });
       });
+      
+      // Check if already logged in
+      if (localStorage.getItem('applepunk_logged_in') === 'true') {
+        const user = localStorage.getItem('applepunk_user');
+        if (confirm(`You're already logged in as ${user}. Go to homepage?`)) {
+          window.location.href = '/';
+        }
+      }
     </script>
   </body>
 </html>
