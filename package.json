@@ -1,30 +1,21 @@
 {
-  "name": "astroship",
-  "type": "module",
-  "version": "3.0.0",
+  "name": "djstrappy-once-ui",
   "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "DJ Strappy / APPLEPPUNK React site. TODO: Add Once UI package when available (e.g., once-ui: ^x.x.x)",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.2.0",
-    "@astrojs/sitemap": "^3.2.1",
-    "@fontsource-variable/bricolage-grotesque": "^5.2.5",
-    "@fontsource-variable/inter": "^5.2.5",
-    "@iconify-json/bx": "^1.2.2",
-    "@iconify-json/simple-icons": "^1.2.28",
-    "@iconify-json/uil": "^1.2.3",
-    "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.0.14",
-    "astro": "^5.16.4",
-    "astro-icon": "^1.1.5",
-    "astro-navbar": "^2.3.9",
-    "astro-seo": "^0.8.4",
-    "sharp": "^0.33.5",
-    "tailwindcss": "^4.0.14"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.2",
+    "vite": "^5.4.9"
   }
 }
