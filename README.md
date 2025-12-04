@@ -1,188 +1,192 @@
-# Astroship - Astro SAAS Starter Website Template
+# APPLEPUNK Developer Hub
 
-Astroship is a free starter astro website template for saas, startups, marketing websites, landing pages & blogs. Built with Astro & TailwindCSS.
+A React + Vite application for the APPLEPUNK Developer Cave / Dev Hub.
 
-This Free Template is sponsored by [Web3Templates](https://web3templates.com)
+🌐 **Domain**: [applepunk.com](https://applepunk.com)  
+📧 **Contact**: [founder@applepunk.com](mailto:founder@applepunk.com)
 
-## Live Demo
+## Features
 
-**[https://astroship.web3templates.com/](https://astroship.web3templates.com/)**
+- **Home Page** (`/`) - Landing page with overview of services
+- **Developer Cave** (`/devhub`) - Developer hub with quick links, contact info, and bio
+- **Redirects**: `/man-cave` redirects to `/devhub`
 
-**[Download Astroship Template](https://web3templates.com/templates/astroship-starter-website-template-for-astro)**
+## Tech Stack
 
-## Upgrade to Astroship Pro Version
+- **React 18** - UI library
+- **Vite** - Build tool and dev server
+- **React Router v7** - Client-side routing
+- **Once UI** - Design system (placeholder - see integration instructions below)
 
-**[https://astroship-pro.web3templates.com/](https://astroship-pro.web3templates.com/)**
+## Local Development
 
-**[Purchase Astroship Pro — $49](https://web3templates.com/templates/astroship-pro-astro-saas-website-template)**
+### Prerequisites
 
+- Node.js 18+ or 20+
+- npm, yarn, or pnpm
 
-<!-- prettier-ignore -->
-| Feature | Free Version | Pro Version |
-| --- | ------ | --- |
-| Astro v3 | ✅  | ✅ |
-| Content Collections | ✅  | ✅ |
-| Tailwind CSS   | ✅  | ✅ |
-| Mobile Responsive | ✅  | ✅ |
-| Working Contact Page | ✅  | ✅ |
-| Pro Layouts & Features | ❌  | ✅ |
-| Blog with Pagination | ❌ | ✅ |
-| View Transitions | ❌ | ✅ |
-| Advanced Homepage Design | ❌  | ✅ |
-| Features Page | ❌  | ✅ |
-| Integrations Page | ❌  | ✅ |
-| Elegant 404 Page | ❌  | ✅ |
-| 6 Months Support| ❌  | ✅  |
-| Free Updates    | ✅  | ✅  |
-| License         | GPL-2.0 | Commercial |
-| &nbsp; | &nbsp;| &nbsp;|
-| Pricing| Free|**$49**|
-| &nbsp; | [Deploy for free](https://vercel.com/new/surjithctly/clone?demo-description=Starter%20template%20for%20startups%2C%20marketing%20websites%20%26%20blogs%20built%20with%20Astro%20and%20TailwindCSS.&demo-image=%2F%2Fimages.ctfassets.net%2Fe5382hct74si%2F5dB0dDqBr1BfvIoNOmffVB%2F784984a8d3fe5e3db123e7c655166046%2Fastroship_-_Tony_Sullivan.jpg&demo-title=Astroship&demo-url=https%3A%2F%2Fastroship.web3templates.com%2F&from=templates&project-name=Astroship&repository-name=astroship&repository-url=https%3A%2F%2Fgithub.com%2Fsurjithctly%2Fastroship&skippable-integrations=1) | [Purchase Pro](https://web3templates.com/templates/astroship-pro-astro-saas-website-template) |
-
-<a href="https://web3templates.com/templates/astroship-pro-astro-saas-website-template">
-<img width="160" alt="Upgrade to Pro" src="https://user-images.githubusercontent.com/1884712/199181300-37c2128e-d033-4145-a906-16fa5263a53b.png">
-</a>
-
-## Deploy this template
-
-You can instantly clone this to your GitHub and deploy the site by clicking the below buttons to deploy to your chosen providers!
-
-Click here to deploy on Vercel:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsurjithctly%2Fastroship&project-name=astroship&repository-name=astroship&demo-title=Astroship%20-%20Astro%20Starter%20Template&demo-description=Astroship%20is%20a%20starter%20template%20for%20startups%2C%20marketing%20websites%20%26%20landing%20pages.%20Built%20with%20Astro%2C%20TailwindCSS&demo-url=https%3A%2F%2Fastroship.web3templates.com%2F&demo-image=https%3A%2F%2Fuser-images.githubusercontent.com%2F1884712%2F200831799-10ef2456-a02e-4068-b580-4b5326f0b33b.png)
-
-Click here to deploy on Netlify:
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/surjithctly/astroship)
-
-## Preview
-
-![image](https://user-images.githubusercontent.com/1884712/200831799-10ef2456-a02e-4068-b580-4b5326f0b33b.png)
-
-
-## Pro Version Preview
-
-![preview](https://github.com/surjithctly/astroship/assets/1884712/25665c02-d2a7-43dc-89b2-34a8ae37ade9)
-
-
-### Pagespeed Score
-
-[![pagespeed](https://user-images.githubusercontent.com/1884712/210250214-7aa98167-7993-4b90-8138-326b8fa0c223.png)](https://pagespeed.web.dev/report?url=https%3A%2F%2Fastroship.web3templates.com%2F)
-
-
-## Installation
-
-If you are reading this on github, you can click on the "Use this template" button above to create a new repository from astroship to your account. Then you can do a `git clone` to clone it to your local system.
-
-Alternatively, you can clone the project directly from this repo to your local system.
-
-### 1. Clone the repo
+### Installation
 
 ```bash
-git clone https://github.com/surjithctly/astroship.git myProjectName
-# or
-git clone https://github.com/surjithctly/astroship.git .
-```
+# Clone the repository
+git clone https://github.com/SEUB66/DJSTRAPPY.git
+cd DJSTRAPPY
 
-The `.` will clone it to the current directory so make sure you are inside your project folder first.
+# Checkout the feature branch
+git checkout feature/once-ui-site
 
-### 2. Install Dependencies
-
-```bash
+# Install dependencies
 npm install
-# or
-yarn install
-# or (recommended)
-pnpm install
-```
 
-### 3. Start development Server
-
-```bash
+# Start development server
 npm run dev
-# or
-yarn dev
-# or (recommended)
-pnpm dev
 ```
 
-### Preview & Build
+The app will be available at `http://localhost:5173`
+
+### Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production (outputs to `dist/`) |
+| `npm run preview` | Preview production build locally |
+
+## Once UI Integration
+
+This project includes placeholders for [Once UI](https://once-ui.com) integration. When the Once UI package or CDN becomes available:
+
+### Option 1: NPM Package (recommended)
 
 ```bash
-npm run preview
-npm run build
-# or
-yarn preview
-yarn build
-# or (recommended)
-pnpm preview
-pnpm build
+# Install Once UI (when available)
+npm install @once-ui/core
 ```
 
-We recommend using [pnpm](https://pnpm.io/) to save disk space on your computer.
+Then add imports in `src/main.jsx`:
 
-### Other Commands
-
-```bash
-pnpm astro ...
-pnpm astro add
-pnpm astro --help
+```jsx
+import '@once-ui/core/styles.css';
+// or with provider
+import { OnceUIProvider } from '@once-ui/core';
 ```
+
+### Option 2: CDN
+
+Add to `index.html` in the `<head>` section:
+
+```html
+<link rel="stylesheet" href="https://cdn.once-ui.com/styles.css" />
+<script src="https://cdn.once-ui.com/once-ui.js"></script>
+```
+
+### Integration Points
+
+The following files contain Once UI integration placeholders:
+- `index.html` - CDN links placeholder in `<head>`
+- `src/main.jsx` - Import statements and provider wrapper
+- `src/App.jsx` - Component usage comments
+- `src/index.css` - CSS variables and theming notes
+
+## Deployment to Vercel
+
+### Prerequisites
+
+1. Vercel account with access to project `seubs-projects/applepunk`
+2. Domain `applepunk.com` configured in your DNS provider
+
+### Deployment Steps
+
+1. **Link Repository to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Navigate to `seubs-projects/applepunk` project
+   - Click "Settings" → "Git" → "Connected Git Repository"
+   - Link to `SEUB66/DJSTRAPPY` repository
+   - Set production branch to `feature/once-ui-site` (or `main` after merge)
+
+2. **Configure Build Settings**
+   - Framework Preset: **Vite**
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Install Command: `npm install`
+
+3. **Configure Custom Domain**
+   - Go to Project Settings → Domains
+   - Add `applepunk.com` as custom domain
+   - Vercel will provide DNS records to configure
+
+4. **DNS Configuration**
+   - Add the following DNS records at your domain registrar:
+   ```
+   Type: A
+   Name: @
+   Value: 76.76.21.21
+
+   Type: CNAME
+   Name: www
+   Value: cname.vercel-dns.com
+   ```
+   
+   Note: The `public/CNAME` file contains `applepunk.com` for GitHub Pages compatibility. Vercel uses its own domain configuration but the CNAME file doesn't interfere.
+
+5. **Deploy**
+   - Push changes to the connected branch
+   - Vercel will automatically build and deploy
+
+### Environment Variables (if needed)
+
+Currently no environment variables are required. If you add features that need them:
+- Go to Project Settings → Environment Variables
+- Add variables for Production/Preview/Development as needed
 
 ## Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
 
 ```
 /
 ├── public/
-│   └── ...
+│   ├── CNAME              # Custom domain for deployment
+│   ├── favicon.svg        # Site favicon
+│   ├── opengraph.jpg      # Social sharing image
+│   └── robots.txt         # Search engine directives
 ├── src/
-│   ├── assets/
-│   │   ├── branding/    # Logo, favicon, and brand elements
-│   │   ├── images/      # Page images (hero, sections, backgrounds)
-│   │   └── audio/       # Audio files for the site
+│   ├── assets/            # Placeholder for assets
 │   ├── components/
-│   │   └── ...
-│   ├── layouts/
-│   │   └── ...
-│   └── pages/
-│       └── ...
-└── package.json
+│   │   └── Footer.jsx     # Site footer with contact
+│   ├── pages/
+│   │   ├── About.jsx      # Home/landing page
+│   │   └── DevHub.jsx     # Developer Cave page
+│   ├── App.jsx            # Main app with routing
+│   ├── index.css          # Global styles
+│   └── main.jsx           # React entry point
+├── index.html             # HTML template
+├── package.json           # Dependencies and scripts
+├── vite.config.js         # Vite configuration
+└── README.md              # This file
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Required Assets
 
-Any static assets, like images, can be placed in the `public/` directory.
+The following assets should be added to the `public/` directory:
 
-## Asset Organization
+| File | Description | Status |
+|------|-------------|--------|
+| `seublogo.png` | APPLEPUNK logo | ⚠️ Placeholder |
+| `avatar.png` | Developer profile picture | ⚠️ Placeholder |
+| `favicon.svg` | Browser tab icon | ✅ Existing |
+| `opengraph.jpg` | Social media preview | ✅ Existing |
 
-Assets are organized in the `src/assets/` directory with the following structure:
+## Contact Information
 
-### `/branding`
-Contains logo, favicon, and brand-related assets:
-- `logo-favicon.svg` - SVG favicon for the site
-- `og-image.jpg` - OpenGraph image for social media sharing
+- **Email**: [founder@applepunk.com](mailto:founder@applepunk.com)
+- **Website**: [applepunk.com](https://applepunk.com)
+- **GitHub**: [@SEUB66](https://github.com/SEUB66)
+- **Twitter**: [@appleppunk](https://twitter.com/appleppunk)
+- **Instagram**: [@appleppunk](https://instagram.com/appleppunk)
 
-### `/images`
-Contains page images organized by their purpose:
-- `hero-main.png` - Main hero banner image for the homepage
-- `hero-alt.png` - Alternative hero image
-- `hero-source.svg` - Source SVG for hero illustrations
+## License
 
-### `/audio`
-Placeholder for audio files. Add audio assets here as needed.
+Copyright © 2024 APPLEPUNK. All rights reserved.
 
-## TailwindCSS
+---
 
-TailwindCSS is already configured in this repo, so you can start using it without any installation.
-
-## Credits
-
-[Hero Illustration](https://www.figma.com/community/file/1108400791662599811) by [Streamline](https://www.streamlinehq.com/)
-
-## 👀 Want to learn more?
-
-Feel free to check out [Astro Docs](https://docs.astro.build) or jump into our [Discord Chat](https://web3templates.com/discord).
-
-[![Built with Astro](https://astro.badg.es/v1/built-with-astro.svg)](https://astro.build)
+*Designed for Apple iOS by SebG*
