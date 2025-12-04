@@ -35,27 +35,22 @@
     return localStorage.getItem(STORAGE_KEY);
   }
 
-  // Initialize theme on page load
-  document.addEventListener('DOMContentLoaded', () => {
+  function initializeTheme() {
     const stored = localStorage.getItem(STORAGE_KEY);
-    let theme = stored;
-    if (!theme) {
-      theme = Math.random() < 0.5 ? 'girl' : 'joker';
-    }
-    applyTheme(theme);
-  });
-
-  // Also run immediately in case DOM is already ready
-  if (document.readyState !== 'loading') {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    let theme = stored;
-    if (!theme) {
-      theme = Math.random() < 0.5 ? 'girl' : 'joker';
-    }
+    const theme = stored || (Math.random() < 0.5 ? 'girl' : 'joker');
     applyTheme(theme);
   }
 
+  // Initialize theme on page load
+  document.addEventListener('DOMContentLoaded', initializeTheme);
+
+  // Also run immediately in case DOM is already ready
+  if (document.readyState !== 'loading') {
+    initializeTheme();
+  }
+
   // Expose functions globally for ThemeToggle to use
+  // Note: This is intentional for Astro's architecture where components can't share state easily
   (window as any).__applySiteTheme = applyTheme;
   (window as any).__getCurrentTheme = getCurrentTheme;
 </script>

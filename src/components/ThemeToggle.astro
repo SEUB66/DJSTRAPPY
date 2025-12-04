@@ -24,11 +24,12 @@
 </div>
 
 <script>
+  const STORAGE_KEY = 'site-theme';
   const jokerBtn = document.getElementById('joker-btn');
   const girlBtn = document.getElementById('girl-btn');
 
   function updateButtonStates() {
-    const current = (window as any).__getCurrentTheme ? (window as any).__getCurrentTheme() : localStorage.getItem('site-theme');
+    const current = (window as any).__getCurrentTheme ? (window as any).__getCurrentTheme() : localStorage.getItem(STORAGE_KEY);
     
     if (jokerBtn && girlBtn) {
       jokerBtn.classList.toggle('active', current === 'joker');
@@ -57,7 +58,7 @@
 
   // Listen for storage changes from other tabs
   window.addEventListener('storage', (e) => {
-    if (e.key === 'site-theme') {
+    if (e.key === STORAGE_KEY) {
       updateButtonStates();
     }
   });
