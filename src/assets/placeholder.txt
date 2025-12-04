@@ -1,0 +1,11 @@
+/* 
+ * Placeholder Avatar/Logo Asset
+ * 
+ * This is a placeholder file. Replace with actual avatar/logo image.
+ * 
+ * Required assets to add:
+ * - avatar.png (profile picture for developer bio)
+ * - seublogo.png (APPLEPUNK logo)
+ * 
+ * Place the actual image files in the public/ directory.
+ */
