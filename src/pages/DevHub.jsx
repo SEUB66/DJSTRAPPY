@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 /**
@@ -7,18 +8,23 @@ import { Link } from 'react-router-dom';
  * Contact email: founder@applepunk.com
  */
 function DevHub() {
+  const [logoError, setLogoError] = useState(false);
+  const [avatarError, setAvatarError] = useState(false);
+
   return (
     <main className="hex-bg min-h-screen py-12 px-4">
       <div className="container">
         {/* Header */}
         <header className="text-center mb-12">
           <Link to="/" className="inline-block mb-6">
-            <img 
-              src="/seublogo.png" 
-              alt="APPLEPUNK Logo" 
-              className="w-24 h-24 mx-auto object-contain rounded-lg"
-              onError={(e) => { e.target.style.display = 'none'; }}
-            />
+            {!logoError && (
+              <img 
+                src="/seublogo.png" 
+                alt="APPLEPUNK Logo" 
+                className="w-24 h-24 mx-auto object-contain rounded-lg"
+                onError={() => setLogoError(true)}
+              />
+            )}
           </Link>
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Developer Cave</span>
@@ -125,15 +131,16 @@ function DevHub() {
           </h2>
           <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
             <div className="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center flex-shrink-0">
-              <img 
-                src="/avatar.png" 
-                alt="SebG Avatar"
-                className="w-28 h-28 rounded-full object-cover"
-                onError={(e) => { 
-                  e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML = '<span class="text-4xl">🎵</span>';
-                }}
-              />
+              {avatarError ? (
+                <span className="text-4xl">🎵</span>
+              ) : (
+                <img 
+                  src="/avatar.png" 
+                  alt="SebG Avatar"
+                  className="w-28 h-28 rounded-full object-cover"
+                  onError={() => setAvatarError(true)}
+                />
+              )}
             </div>
             <div>
               <h3 className="text-xl font-bold text-cyan-400 mb-2">SebG</h3>

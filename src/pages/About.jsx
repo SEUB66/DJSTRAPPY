@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 /**
@@ -7,18 +8,22 @@ import { Link } from 'react-router-dom';
  * Based on content from the original Astro site README and description.
  */
 function About() {
+  const [logoError, setLogoError] = useState(false);
+
   return (
     <main className="hex-bg min-h-screen py-12 px-4">
       <div className="container">
         {/* Hero Section */}
         <header className="text-center mb-16 pt-8">
           <div className="mb-8">
-            <img 
-              src="/seublogo.png" 
-              alt="APPLEPUNK Logo" 
-              className="w-32 h-32 mx-auto object-contain rounded-lg"
-              onError={(e) => { e.target.style.display = 'none'; }}
-            />
+            {!logoError && (
+              <img 
+                src="/seublogo.png" 
+                alt="APPLEPUNK Logo" 
+                className="w-32 h-32 mx-auto object-contain rounded-lg"
+                onError={() => setLogoError(true)}
+              />
+            )}
           </div>
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
             <span className="gradient-text">APPLEPUNK</span>
