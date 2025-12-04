@@ -207,6 +207,8 @@ const { src, title, artist = "" } = Astro.props;
   const volumeBar = document.getElementById('volume-bar') as HTMLInputElement;
 
   let previousVolume = 0.8;
+  let lastProgressUpdate = 0;
+  const PROGRESS_UPDATE_INTERVAL = 250; // Throttle to max 4 updates per second
 
   function formatTime(seconds: number): string {
     if (isNaN(seconds)) return '0:00';
@@ -232,7 +234,12 @@ const { src, title, artist = "" } = Astro.props;
     }
   }
 
+  // Throttled progress update to reduce DOM updates (timeupdate fires frequently)
   function updateProgress(): void {
+    const now = Date.now();
+    if (now - lastProgressUpdate < PROGRESS_UPDATE_INTERVAL) return;
+    lastProgressUpdate = now;
+    
     if (audio.duration) {
       const percent = (audio.currentTime / audio.duration) * 100;
       progressBar.value = percent.toString();

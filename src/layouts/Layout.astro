@@ -38,7 +38,10 @@ const formattedPageTitle = title
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
+    <!-- Preconnect to external origins for faster resource loading -->
+    <link rel="preconnect" href="https://player.vimeo.com" />
+    <link rel="preconnect" href="https://api.web3forms.com" />
+
     <SEO
       title={formattedPageTitle}
       description="APPLEPPUNK - Professional Web Design, App Development, Company Branding & Social Network Boosting services. Transform your digital presence."
