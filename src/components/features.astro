@@ -4,50 +4,50 @@ import { Icon } from "astro-icon/components";
 
 const features = [
   {
-    title: "Electronic Music Production",
+    title: "Web Design",
     description:
-      "Crafting unique electronic soundscapes with cutting-edge production techniques and creative experimentation.",
-    icon: "bx:bxs-briefcase",
-  },
-  {
-    title: "Live DJ Sets",
-    description:
-      "High-energy live performances that blend various genres and create unforgettable experiences on the dancefloor.",
+      "Creating stunning, responsive websites that captivate your audience and drive conversions. Modern designs tailored to your brand.",
     icon: "bx:bxs-window-alt",
   },
   {
-    title: "Original Compositions",
+    title: "App Development",
     description:
-      "Creating original tracks like 'Atypique' that push boundaries and explore new sonic territories.",
-    icon: "bx:bxs-data",
+      "Building powerful mobile and web applications with cutting-edge technologies. From concept to launch, we bring your ideas to life.",
+    icon: "bx:bxs-devices",
   },
   {
-    title: "Collaboration",
+    title: "Company Branding",
     description:
-      "Working with talented artists and producers to create unique collaborative projects and remixes.",
-    icon: "bx:bxs-bot",
+      "Crafting unique brand identities that stand out. Logo design, visual guidelines, and complete brand strategies for your business.",
+    icon: "bx:bxs-palette",
   },
   {
-    title: "Music Distribution",
+    title: "Social Network Boosting",
     description:
-      "Making our music accessible across all major platforms so you can enjoy our sounds anywhere, anytime.",
-    icon: "bx:bxs-file-find",
+      "Amplifying your social media presence with strategic campaigns, content creation, and audience engagement tactics.",
+    icon: "bx:bxs-rocket",
   },
   {
-    title: "Community",
+    title: "Videoclip Ads Creation",
     description:
-      "Building a passionate community of music lovers who share our vision for innovative electronic music.",
-    icon: "bx:bxs-user",
+      "Producing compelling video advertisements and promotional clips that capture attention and tell your brand's story.",
+    icon: "bx:bxs-video",
+  },
+  {
+    title: "Digital Strategy",
+    description:
+      "Comprehensive digital marketing strategies to grow your online presence and reach your target audience effectively.",
+    icon: "bx:bxs-analyse",
   },
 ];
 ---
 
-<div class="mt-16 md:mt-0">
+<div id="services" class="mt-16 md:mt-0 scroll-mt-20">
   <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
-    The DJStrappy Experience
+    Our Services
   </h2>
-  <p class="text-lg mt-4 text-slate-600">
-    Discover what makes our music unique. From production to performance, we bring passion and innovation to everything we do.
+  <p class="text-lg mt-4 text-slate-600 dark:text-slate-400">
+    We offer comprehensive digital solutions to help your business thrive in the modern world. From design to development, we've got you covered.
   </p>
 </div>
 
@@ -59,8 +59,8 @@ const features = [
           <Icon class="text-white" name={feature.icon} />
         </div>
         <div>
-          <h3 class="font-semibold text-lg text-teal-600">{feature.title}</h3>{" "}
-          <p class="text-slate-500 mt-2 leading-relaxed">{feature.description}</p>
+          <h3 class="font-semibold text-lg text-teal-600 dark:text-teal-400">{feature.title}</h3>{" "}
+          <p class="text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">{feature.description}</p>
         </div>
       </div>
     ))
