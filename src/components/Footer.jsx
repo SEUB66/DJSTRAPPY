@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 /**
  * Footer Component
  * 
@@ -6,15 +8,26 @@
  */
 function Footer() {
   const currentYear = new Date().getFullYear();
+  const [logoError, setLogoError] = useState(false);
   
   return (
     <footer className="py-12 px-4 border-t border-gray-800">
       <div className="container">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           {/* Brand */}
-          <div className="text-center md:text-left">
-            <span className="text-xl font-bold gradient-text">APPLEPUNK</span>
-            <p className="text-gray-500 text-sm mt-1">Web Design & App Development</p>
+          <div className="text-center md:text-left flex items-center gap-3">
+            {!logoError && (
+              <img 
+                src="/seublogo.png" 
+                alt="APPLEPUNK Logo" 
+                className="w-12 h-12 object-contain rounded-lg"
+                onError={() => setLogoError(true)}
+              />
+            )}
+            <div>
+              <span className="text-xl font-bold gradient-text">APPLEPUNK</span>
+              <p className="text-gray-500 text-sm mt-1">Web Design & App Development</p>
+            </div>
           </div>
           
           {/* Contact */}
