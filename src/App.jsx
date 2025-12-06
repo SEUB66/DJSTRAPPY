@@ -1,6 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import DevHub from './pages/DevHub';
 import About from './pages/About';
+import Login from './pages/Login';
+import User from './pages/User';
+import Header from './components/Header';
 import Footer from './components/Footer';
 
 /*
@@ -21,11 +24,16 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
+        <Header />
         <Routes>
           <Route path="/" element={<About />} />
           <Route path="/devhub" element={<DevHub />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/user" element={<User />} />
           {/* Redirect /man-cave to /devhub */}
           <Route path="/man-cave" element={<Navigate to="/devhub" replace />} />
+          {/* Redirect /signup to /login for now */}
+          <Route path="/signup" element={<Navigate to="/login" replace />} />
         </Routes>
         <Footer />
       </div>
