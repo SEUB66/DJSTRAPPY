@@ -5,6 +5,22 @@ const COORDINATE_CENTER = 50; // Center point in 0-100 coordinate system
 const RADIANS_TO_DEGREES = 180 / Math.PI;
 const ANGLE_OFFSET = 90; // Offset to convert from atan2 to CSS gradient angle
 
+// Color token mapping for design system consistency (moved outside component for performance)
+const COLOR_TOKENS = {
+  'brand-background-strong': 'var(--color-brand-background-strong, #06b6d4)',
+  'brand-background-weak': 'var(--color-brand-background-weak, rgba(6, 182, 212, 0.3))',
+  'accent-background-strong': 'var(--color-accent-background-strong, #8b5cf6)',
+  'accent-background-weak': 'var(--color-accent-background-weak, rgba(139, 92, 246, 0.3))',
+  'neutral-background': 'var(--color-neutral-background, #0a0a0f)',
+  'surface-background': 'var(--color-surface-background, rgba(0, 0, 0, 0.7))',
+};
+
+// Resolve color token to actual CSS value (moved outside component for performance)
+const resolveColor = (colorToken) => {
+  if (!colorToken) return 'transparent';
+  return COLOR_TOKENS[colorToken] || colorToken;
+};
+
 /**
  * Background Component
  * 
@@ -30,21 +46,6 @@ function Background({
   children,
   className = ''
 }) {
-  // Color token mapping for design system consistency
-  const colorTokens = {
-    'brand-background-strong': 'var(--color-brand-background-strong, #06b6d4)',
-    'brand-background-weak': 'var(--color-brand-background-weak, rgba(6, 182, 212, 0.3))',
-    'accent-background-strong': 'var(--color-accent-background-strong, #8b5cf6)',
-    'accent-background-weak': 'var(--color-accent-background-weak, rgba(139, 92, 246, 0.3))',
-    'neutral-background': 'var(--color-neutral-background, #0a0a0f)',
-    'surface-background': 'var(--color-surface-background, rgba(0, 0, 0, 0.7))',
-  };
-
-  // Resolve color token to actual CSS value
-  const resolveColor = (colorToken) => {
-    if (!colorToken) return 'transparent';
-    return colorTokens[colorToken] || colorToken;
-  };
 
   // Extract gradient properties for dependency tracking
   const { display, opacity = 1, x = 50, y = 0, colorStart, colorEnd } = gradient || {};
